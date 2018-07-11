@@ -193,6 +193,18 @@
     <profiles>
         <profile>
             <!-- ojdbc is not Apache license compatible, so it must be manually downloaded first -->
+            <id>include-ojdbc6</id>
+            <activation>
+                <file>
+                    <exists>${basedir}/../../ci-dependencies/ojdbc6-12.1.0.2.jar</exists>
+                </file>
+            </activation>
+            <modules>
+                <module>oracle-11.x-plugin</module>
+            </modules>
+        </profile>
+        <profile>
+            <!-- ojdbc is not Apache license compatible, so it must be manually downloaded first -->
             <id>include-ojdbc</id>
             <activation>
                 <file>

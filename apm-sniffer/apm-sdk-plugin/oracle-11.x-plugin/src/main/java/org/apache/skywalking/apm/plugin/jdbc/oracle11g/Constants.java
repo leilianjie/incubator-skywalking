@@ -16,24 +16,15 @@
  *
  */
 
-
-package org.apache.skywalking.apm.toolkit.trace;
+package org.apache.skywalking.apm.plugin.jdbc.oracle11g;
 
 /**
- * provide custom api that set tag for current active span.
+ * Constants variables
  *
- * @author zhangxin
+ * @author zhang xin
  */
-public class ActiveSpan {
-    /**
-     * @param key tag key
-     * @param value tag value
-     */
-    public static void tag(String key, String value) {
+public final class Constants {
+    public static final String STATEMENT_INTERCEPT_CLASS = "org.apache.skywalking.apm.plugin.jdbc.oracle11g.StatementExecuteMethodsInterceptor";
 
-    }
-    
-    public static void user(String userid){
-    	
-    }
+    public static final String PREPARED_STATEMENT_INTERCEPT_CLASS = "org.apache.skywalking.apm.plugin.jdbc.oracle11g.PreparedStatementExecuteMethodsInterceptor";
 }

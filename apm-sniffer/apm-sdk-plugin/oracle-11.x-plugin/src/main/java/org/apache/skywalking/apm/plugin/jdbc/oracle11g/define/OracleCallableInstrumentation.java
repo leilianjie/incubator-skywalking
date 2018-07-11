@@ -16,44 +16,38 @@
  *
  */
 
-
-package org.apache.skywalking.apm.toolkit.activation.trace;
+package org.apache.skywalking.apm.plugin.jdbc.oracle11g.define;
 
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.matcher.ElementMatcher;
-import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.ClassStaticMethodsEnhancePluginDefine;
-import org.apache.skywalking.apm.agent.core.plugin.match.NameMatch;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.ConstructorInterceptPoint;
-import org.apache.skywalking.apm.agent.core.plugin.interceptor.StaticMethodsInterceptPoint;
+import org.apache.skywalking.apm.agent.core.plugin.interceptor.InstanceMethodsInterceptPoint;
+import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.ClassInstanceMethodsEnhancePluginDefine;
 import org.apache.skywalking.apm.agent.core.plugin.match.ClassMatch;
 
 import static net.bytebuddy.matcher.ElementMatchers.named;
+import static org.apache.skywalking.apm.agent.core.plugin.match.NameMatch.byName;
+import static org.apache.skywalking.apm.plugin.jdbc.oracle11g.Constants.PREPARED_STATEMENT_INTERCEPT_CLASS;
 
-/**
- * {@link TraceAnnotationActivation} enhance the <code>tag</code> method of <code>ActiveSpan</code>
- * by <code>ActiveSpanTagInterceptor</code>.
- *
- * @author zhangxin
- */
-public class ActiveSpanTagActivation extends ClassStaticMethodsEnhancePluginDefine {
+public class OracleCallableInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
 
-    public static final String ENHANCE_CLASS = "org.apache.skywalking.apm.toolkit.trace.ActiveSpan";
-    public static final String INTERCEPTOR_CLASS = "org.apache.skywalking.apm.toolkit.activation.trace.ActiveSpanTagInterceptor";
-    public static final String INTERCEPTOR_METHOD_NAME = "tag";
+    public static final String ENHANCE_CLASS = "oracle.jdbc.driver.OracleCallableStatementWrapper";
 
     @Override protected ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
         return new ConstructorInterceptPoint[0];
     }
 
-    @Override protected StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[] {
-            new StaticMethodsInterceptPoint() {
+    @Override protected InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+        return new InstanceMethodsInterceptPoint[] {
+            new InstanceMethodsInterceptPoint() {
                 @Override public ElementMatcher<MethodDescription> getMethodsMatcher() {
-                    return named(INTERCEPTOR_METHOD_NAME).or(named("user"));
+                    return named("execute")
+                        .or(named("executeQuery"))
+                        .or(named("executeUpdate"));
                 }
 
                 @Override public String getMethodsInterceptor() {
-                    return INTERCEPTOR_CLASS;
+                    return PREPARED_STATEMENT_INTERCEPT_CLASS;
                 }
 
                 @Override public boolean isOverrideArgs() {
@@ -64,6 +58,6 @@ public class ActiveSpanTagActivation extends ClassStaticMethodsEnhancePluginDefi
     }
 
     @Override protected ClassMatch enhanceClass() {
-        return NameMatch.byName(ENHANCE_CLASS);
+        return byName(ENHANCE_CLASS);
     }
 }

@@ -31,7 +31,11 @@ public class ActiveSpanTagInterceptor implements StaticMethodsAroundInterceptor 
         AbstractSpan activeSpan = null;
         try {
             activeSpan = ContextManager.activeSpan();
-            activeSpan.tag(String.valueOf(allArguments[0]), String.valueOf(allArguments[1]));
+            if(method.getName().equals("tag")){
+            	activeSpan.tag(String.valueOf(allArguments[0]), String.valueOf(allArguments[1]));
+            }else if(method.getName().equals("user")){
+            	activeSpan.setOperationName((String)allArguments[0]);
+            }
         } catch (NullPointerException e) {
         }
     }

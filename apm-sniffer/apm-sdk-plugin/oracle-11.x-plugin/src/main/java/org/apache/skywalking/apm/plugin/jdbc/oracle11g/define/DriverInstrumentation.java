@@ -17,23 +17,21 @@
  */
 
 
-package org.apache.skywalking.apm.toolkit.trace;
+package org.apache.skywalking.apm.plugin.jdbc.oracle11g.define;
+
+import org.apache.skywalking.apm.agent.core.plugin.match.ClassMatch;
+import org.apache.skywalking.apm.agent.core.plugin.match.NameMatch;
+import org.apache.skywalking.apm.plugin.jdbc.define.AbstractDriverInstrumentation;
 
 /**
- * provide custom api that set tag for current active span.
+ * {@link DriverInstrumentation} presents that skywalking intercepts {@link oracle.jdbc.driver.OracleDriver}.
  *
  * @author zhangxin
  */
-public class ActiveSpan {
-    /**
-     * @param key tag key
-     * @param value tag value
-     */
-    public static void tag(String key, String value) {
+public class DriverInstrumentation extends AbstractDriverInstrumentation {
 
-    }
-    
-    public static void user(String userid){
-    	
+    @Override
+    protected ClassMatch enhanceClass() {
+        return NameMatch.byName("oracle.jdbc.driver.OracleDriver");
     }
 }
