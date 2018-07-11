@@ -1,6 +1,8 @@
 ## 中文文档
 [![EN doc](https://img.shields.io/badge/document-English-blue.svg)](README.md)
 
+注：中文文档由社区志愿者提供，官方文档以英文为准。
+
   * 快速入门
     * [快速入门](cn/Quick-start-CN.md)
     * [中间件，框架与类库支持列表](Supported-list.md)
@@ -14,6 +16,7 @@
     * [基于Token认证](cn/Token-auth-CN.md)
   * 孵化特性
     * [个性化服务过滤](../apm-sniffer/optional-plugins/trace-ignore-plugin/README_CN.md)
+    * [使用Shardingjdbc作为存储实现](cn/Use-ShardingJDBC-as-storage-implementor-CN.md)
   * APM相关介绍资料
     * [OpenTracing中文版](https://github.com/opentracing-contrib/opentracing-specification-zh)
   * Application Toolkit，应用程序工具包
