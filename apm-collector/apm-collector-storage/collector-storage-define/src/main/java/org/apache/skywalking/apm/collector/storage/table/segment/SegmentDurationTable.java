@@ -29,6 +29,8 @@ import org.apache.skywalking.apm.collector.storage.table.register.ServiceNameTab
 public interface SegmentDurationTable extends CommonTable, SegmentTable, ServiceNameTable, GlobalTraceTable {
     String TABLE = "segment_duration";
 
+    ColumnName USER_ID = new ColumnName("user_id", "uid");
+    
     ColumnName START_TIME = new ColumnName("start_time", "dst");
 
     ColumnName END_TIME = new ColumnName("end_time", "det");

@@ -57,6 +57,7 @@ public class SegmentDurationEsPersistenceDAO extends EsDAO implements ISegmentDu
             .field(SegmentDurationTable.SEGMENT_ID.getName(), data.getSegmentId())
             .field(SegmentDurationTable.APPLICATION_ID.getName(), data.getApplicationId())
             .field(SegmentDurationTable.SERVICE_NAME.getName(), data.getServiceName())
+            .field(SegmentDurationTable.USER_ID.getName(), data.getUserId())
             .field(SegmentDurationTable.DURATION.getName(), data.getDuration())
             .field(SegmentDurationTable.START_TIME.getName(), data.getStartTime())
             .field(SegmentDurationTable.END_TIME.getName(), data.getEndTime())

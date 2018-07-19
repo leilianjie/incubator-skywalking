@@ -44,6 +44,10 @@ public class SegmentDecorator implements StandardBuilder {
     public int getApplicationInstanceId() {
         return segmentObject.getApplicationInstanceId();
     }
+    
+    public String getUserId() {
+    	return segmentObject.getUserId();
+    }
 
     public UniqueId getTraceSegmentId() {
         return segmentObject.getTraceSegmentId();

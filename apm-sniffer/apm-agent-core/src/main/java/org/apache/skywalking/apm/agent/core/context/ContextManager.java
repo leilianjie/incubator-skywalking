@@ -128,6 +128,10 @@ public class ContextManager implements TracingContextListener, BootService, Igno
     public static void inject(ContextCarrier carrier) {
         get().inject(carrier);
     }
+    
+    public static void userId(String userId) {
+    	get().userId(userId);
+    }
 
     public static void extract(ContextCarrier carrier) {
         if (carrier == null) {

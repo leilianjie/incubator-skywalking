@@ -60,6 +60,7 @@ public class SegmentDurationSpanListener implements FirstSpanListener, EntrySpan
         segmentDuration.setId(segmentCoreInfo.getSegmentId());
         segmentDuration.setTraceId(segmentCoreInfo.getTraceId());
         segmentDuration.setSegmentId(segmentCoreInfo.getSegmentId());
+        segmentDuration.setUserId(segmentCoreInfo.getUserId());
         segmentDuration.setApplicationId(segmentCoreInfo.getApplicationId());
         segmentDuration.setDuration(segmentCoreInfo.getEndTime() - segmentCoreInfo.getStartTime());
         segmentDuration.setStartTime(segmentCoreInfo.getStartTime());

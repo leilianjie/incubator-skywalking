@@ -110,6 +110,7 @@ public class SegmentParse {
         }
 
         segmentCoreInfo.setSegmentId(segmentIdBuilder.toString());
+        segmentCoreInfo.setUserId(segmentDecorator.getUserId());
         segmentCoreInfo.setApplicationId(segmentDecorator.getApplicationId());
         segmentCoreInfo.setApplicationInstanceId(segmentDecorator.getApplicationInstanceId());
 

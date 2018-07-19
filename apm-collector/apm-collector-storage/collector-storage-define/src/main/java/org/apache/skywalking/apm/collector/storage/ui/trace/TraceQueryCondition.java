@@ -27,6 +27,7 @@ import org.apache.skywalking.apm.collector.storage.ui.common.Pagination;
 public class TraceQueryCondition {
     private int applicationId;
     private String traceId;
+    private String userId;
     private String operationName;
     private Duration queryDuration;
     private int minTraceDuration;
@@ -76,7 +77,15 @@ public class TraceQueryCondition {
         this.operationName = operationName;
     }
 
-    public Duration getQueryDuration() {
+    public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public Duration getQueryDuration() {
         return queryDuration;
     }
 

@@ -141,4 +141,8 @@ public class IgnoredTracerContext implements AbstractTracerContext {
             LISTENERS.remove(listener);
         }
     }
+
+	@Override
+	public void userId(String userId) {
+	}
 }

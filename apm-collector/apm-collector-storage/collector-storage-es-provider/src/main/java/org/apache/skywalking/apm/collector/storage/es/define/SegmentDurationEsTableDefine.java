@@ -38,6 +38,7 @@ public class SegmentDurationEsTableDefine extends ElasticSearchTableDefine {
     @Override public void initialize() {
         addColumn(new ElasticSearchColumnDefine(SegmentDurationTable.SEGMENT_ID, ElasticSearchColumnDefine.Type.Keyword.name()));
         addColumn(new ElasticSearchColumnDefine(SegmentDurationTable.APPLICATION_ID, ElasticSearchColumnDefine.Type.Integer.name()));
+        addColumn(new ElasticSearchColumnDefine(SegmentDurationTable.USER_ID, ElasticSearchColumnDefine.Type.Text.name()));
         addColumn(new ElasticSearchColumnDefine(SegmentDurationTable.SERVICE_NAME, ElasticSearchColumnDefine.Type.Text.name()));
         addColumn(new ElasticSearchColumnDefine(SegmentDurationTable.TRACE_ID, ElasticSearchColumnDefine.Type.Keyword.name()));
         addColumn(new ElasticSearchColumnDefine(SegmentDurationTable.DURATION, ElasticSearchColumnDefine.Type.Long.name()));

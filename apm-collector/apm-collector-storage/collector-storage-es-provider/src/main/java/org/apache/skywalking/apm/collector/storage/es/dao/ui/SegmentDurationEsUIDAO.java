@@ -41,7 +41,7 @@ public class SegmentDurationEsUIDAO extends EsDAO implements ISegmentDurationUID
 
     @Override
     public TraceBrief loadTop(long startSecondTimeBucket, long endSecondTimeBucket, long minDuration, long maxDuration,
-        String operationName, int applicationId, int limit, int from, TraceState traceState, QueryOrder queryOrder,
+        String operationName,String userId, int applicationId, int limit, int from, TraceState traceState, QueryOrder queryOrder,
         String... segmentIds) {
         SearchRequestBuilder searchRequestBuilder = getClient().prepareSearch(SegmentDurationTable.TABLE);
         searchRequestBuilder.setTypes(SegmentDurationTable.TABLE_TYPE);
@@ -65,7 +65,10 @@ public class SegmentDurationEsUIDAO extends EsDAO implements ISegmentDurationUID
             boolQueryBuilder.must().add(rangeQueryBuilder);
         }
         if (StringUtils.isNotEmpty(operationName)) {
-            mustQueryList.add(QueryBuilders.matchPhraseQuery(SegmentDurationTable.SERVICE_NAME.getName(), operationName));
+        	mustQueryList.add(QueryBuilders.matchPhraseQuery(SegmentDurationTable.SERVICE_NAME.getName(), operationName));
+        }
+        if (StringUtils.isNotEmpty(userId)) {
+            mustQueryList.add(QueryBuilders.matchPhraseQuery(SegmentDurationTable.USER_ID.getName(), userId));
         }
         if (CollectionUtils.isNotEmpty(segmentIds)) {
             boolQueryBuilder.must().add(QueryBuilders.termsQuery(SegmentDurationTable.SEGMENT_ID.getName(), segmentIds));

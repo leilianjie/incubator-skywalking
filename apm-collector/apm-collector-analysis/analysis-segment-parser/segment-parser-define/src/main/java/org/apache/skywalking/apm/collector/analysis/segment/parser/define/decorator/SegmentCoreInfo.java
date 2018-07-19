@@ -24,6 +24,7 @@ package org.apache.skywalking.apm.collector.analysis.segment.parser.define.decor
 public class SegmentCoreInfo {
     private String segmentId;
     private String traceId;
+    private String userId;
     private int applicationId;
     private int applicationInstanceId;
     private long startTime;
@@ -94,4 +95,14 @@ public class SegmentCoreInfo {
     public void setTraceId(String traceId) {
         this.traceId = traceId;
     }
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+    
+    
 }

@@ -109,4 +109,9 @@ public interface AbstractTracerContext {
      * @return the runtime context from current tracing context.
      */
     RuntimeContext getRuntimeContext();
+    
+    /**
+     * user the data belongs to
+     */
+    void userId(String userId);
 }

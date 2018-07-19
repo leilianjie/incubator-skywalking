@@ -70,11 +70,11 @@ public class SegmentTopServiceTest {
         long startSecondTimeBucket = DurationUtils.INSTANCE.startTimeDurationToSecondTimeBucket(duration.getStep(), duration.getStart());
         long endSecondTimeBucket = DurationUtils.INSTANCE.endTimeDurationToSecondTimeBucket(duration.getStep(), duration.getEnd());
         when(globalTraceUIDAO.getSegmentIds(anyString())).then(invocation -> Collections.singletonList("segmentIds"));
-        when(segmentDurationUIDAO.loadTop(anyLong(), anyLong(), anyLong(), anyLong(), anyString(), anyInt(), anyInt(), anyInt(),anyObject(),anyObject())).then(invocation -> getTrace());
-        when(segmentDurationUIDAO.loadTop(anyLong(), anyLong(), anyLong(), anyLong(), anyString(), anyInt(), anyInt(), anyInt(), anyObject(),anyObject(),anyObject())).then(invocation -> getTrace());
-        TraceBrief traceBrief = segmentTopService.loadTop(startSecondTimeBucket, endSecondTimeBucket, 0, 1, "test", null, 1, 10, 0,TraceState.ALL,QueryOrder.BY_START_TIME);
+        when(segmentDurationUIDAO.loadTop(anyLong(), anyLong(), anyLong(), anyLong(), anyString(), anyString(), anyInt(), anyInt(), anyInt(),anyObject(),anyObject())).then(invocation -> getTrace());
+        when(segmentDurationUIDAO.loadTop(anyLong(), anyLong(), anyLong(), anyLong(), anyString(), anyString(), anyInt(), anyInt(), anyInt(), anyObject(),anyObject(),anyObject())).then(invocation -> getTrace());
+        TraceBrief traceBrief = segmentTopService.loadTop(startSecondTimeBucket, endSecondTimeBucket, 0, 1, "test", "user01", null, 1, 10, 0,TraceState.ALL,QueryOrder.BY_START_TIME);
         Assert.assertTrue(traceBrief.getTraces().size() == 1);
-        traceBrief = segmentTopService.loadTop(startSecondTimeBucket, endSecondTimeBucket, 0, 1, "test", "traceId", 1, 10, 0,TraceState.ALL,QueryOrder.BY_START_TIME);
+        traceBrief = segmentTopService.loadTop(startSecondTimeBucket, endSecondTimeBucket, 0, 1, "test", "traceId", "user01", 1, 10, 0,TraceState.ALL,QueryOrder.BY_START_TIME);
         Assert.assertTrue(traceBrief.getTraces().size() == 1);
     }
 

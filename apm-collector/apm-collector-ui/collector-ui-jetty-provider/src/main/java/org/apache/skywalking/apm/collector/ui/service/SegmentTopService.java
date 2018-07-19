@@ -42,7 +42,7 @@ public class SegmentTopService {
     }
 
     public TraceBrief loadTop(long startSecondTimeBucket, long endSecondTimeBucket, long minDuration, long maxDuration,
-        String operationName,
+        String operationName,String userId, 
         String traceId, int applicationId, int limit, int from, TraceState traceState, QueryOrder queryOrder) {
         logger.debug("startSecondTimeBucket: {}, endSecondTimeBucket: {}, minDuration: {}, " +
                 "maxDuration: {}, operationName: {}, traceId: {}, applicationId: {}, limit: {}, from: {}, traceState: {}, queryOrder: {}",
@@ -55,9 +55,9 @@ public class SegmentTopService {
             if (CollectionUtils.isEmpty(segmentIds)) {
                 return new TraceBrief();
             }
-            traceBrief = segmentDurationUIDAO.loadTop(startSecondTimeBucket, endSecondTimeBucket, minDuration, maxDuration, operationName, applicationId, limit, from, traceState, queryOrder, segmentIds.toArray(new String[0]));
+            traceBrief = segmentDurationUIDAO.loadTop(startSecondTimeBucket, endSecondTimeBucket, minDuration, maxDuration, operationName, userId, applicationId, limit, from, traceState, queryOrder, segmentIds.toArray(new String[0]));
         } else {
-            traceBrief = segmentDurationUIDAO.loadTop(startSecondTimeBucket, endSecondTimeBucket, minDuration, maxDuration, operationName, applicationId, limit, from, traceState, queryOrder);
+            traceBrief = segmentDurationUIDAO.loadTop(startSecondTimeBucket, endSecondTimeBucket, minDuration, maxDuration, operationName, userId, applicationId, limit, from, traceState, queryOrder);
         }
 
         traceBrief.getTraces().forEach(trace -> {

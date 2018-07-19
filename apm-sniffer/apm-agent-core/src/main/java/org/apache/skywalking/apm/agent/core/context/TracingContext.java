@@ -534,4 +534,9 @@ public class TracingContext implements AbstractTracerContext {
             return false;
         }
     }
+
+	@Override
+	public void userId(String userId) {
+	  this.segment.setUserId(userId);
+	}
 }

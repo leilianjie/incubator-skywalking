@@ -58,7 +58,7 @@ public class SegmentDurationShardingjdbcUIDAO extends ShardingjdbcDAO implements
 
     @Override
     public TraceBrief loadTop(long startSecondTimeBucket, long endSecondTimeBucket, long minDuration, long maxDuration,
-        String operationName, int applicationId, int limit, int from, TraceState traceState, QueryOrder queryOrder, String... segmentIds) {
+        String operationName, String userId, int applicationId, int limit, int from, TraceState traceState, QueryOrder queryOrder, String... segmentIds) {
         ShardingjdbcClient client = getClient();
         String sql = "select * from {0} where {1} >= ? and {1} <= ?";
         List<Object> params = new ArrayList<>();

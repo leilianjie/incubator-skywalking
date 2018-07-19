@@ -71,6 +71,8 @@ public class TraceSegment {
     private boolean ignore = false;
 
     private boolean isSizeLimited = false;
+    
+    private String userId = "";
 
     /**
      * Create a default/empty trace segment, with current time as start time, and generate a new segment id.
@@ -153,7 +155,15 @@ public class TraceSegment {
         this.ignore = ignore;
     }
 
-    /**
+    public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	/**
      * This is a high CPU cost method, only called when sending to collector or test cases.
      *
      * @return the segment as GRPC service parameter
@@ -177,6 +187,7 @@ public class TraceSegment {
         traceSegmentBuilder.setApplicationId(RemoteDownstreamConfig.Agent.APPLICATION_ID);
         traceSegmentBuilder.setApplicationInstanceId(RemoteDownstreamConfig.Agent.APPLICATION_INSTANCE_ID);
         traceSegmentBuilder.setIsSizeLimited(this.isSizeLimited);
+        traceSegmentBuilder.setUserId(this.userId);
 
         upstreamBuilder.setSegment(traceSegmentBuilder.build().toByteString());
         return upstreamBuilder.build();

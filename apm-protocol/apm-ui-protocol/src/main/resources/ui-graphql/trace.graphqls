@@ -36,6 +36,7 @@ input TraceQueryCondition {
   applicationId: Int
   traceId: String
   operationName: String
+  userId: String
   # The time range of traces started
   queryDuration: Duration
   # The mix time of trace

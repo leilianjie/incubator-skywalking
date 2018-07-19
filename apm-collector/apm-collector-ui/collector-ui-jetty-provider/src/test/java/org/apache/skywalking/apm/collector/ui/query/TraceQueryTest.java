@@ -69,7 +69,7 @@ public class TraceQueryTest {
         Mockito.when(segmentTopService.loadTop(
                 Mockito.anyLong(), Mockito.anyLong(),
                 Mockito.anyLong(), Mockito.anyLong(),
-                Mockito.anyString(), Mockito.anyString(),
+                Mockito.anyString(), Mockito.anyString(),Mockito.anyString(),
                 Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyObject(), Mockito.anyObject()
                 )
         ).then(invocation -> {

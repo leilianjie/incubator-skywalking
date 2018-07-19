@@ -31,6 +31,7 @@ public class SegmentDuration extends StreamData {
         new StringColumn(SegmentDurationTable.ID, new NonMergeOperation()),
         new StringColumn(SegmentDurationTable.SEGMENT_ID, new CoverMergeOperation()),
         new StringColumn(SegmentDurationTable.TRACE_ID, new CoverMergeOperation()),
+        new StringColumn(SegmentDurationTable.USER_ID, new CoverMergeOperation()),
     };
 
     private static final LongColumn[] LONG_COLUMNS = {
@@ -83,6 +84,14 @@ public class SegmentDuration extends StreamData {
 
     public void setTraceId(String traceId) {
         setDataString(2, traceId);
+    }
+    
+    public String getUserId() {
+    	return getDataString(3);
+    }
+    
+    public void setUserId(String userId) {
+    	setDataString(3, userId);
     }
 
     public StringLinkedList getServiceName() {
