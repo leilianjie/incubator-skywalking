@@ -91,6 +91,10 @@ public class ComponentsDefine {
     public static final OfficialComponent MONGO_DRIVER = new OfficialComponent(42, "mongodb-driver");
 
     public static final OfficialComponent SOFARPC =  new OfficialComponent(43, "SOFARPC");
+    
+    public static final OfficialComponent FC_REQUEST =  new OfficialComponent(44, "FC_REQUEST");
+    
+    public static final OfficialComponent FC_SRV =  new OfficialComponent(45, "FC_SRV");
 
     private static ComponentsDefine INSTANCE = new ComponentsDefine();
 

@@ -110,7 +110,7 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
                 <version>1.6</version>
@@ -131,7 +131,7 @@
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>install --registry=https://registry.npmjs.org/</arguments>
+                            <arguments></arguments>
                         </configuration>
                     </execution>
                     <execution>
@@ -144,7 +144,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -162,7 +162,7 @@
                         </resource>
                     </resources>
                 </configuration>
-            </plugin>
+            </plugin> 
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

@@ -18,9 +18,16 @@
 
 package org.apache.skywalking.apm.plugin.spring.mvc.commons.interceptor;
 
+import static org.apache.skywalking.apm.plugin.spring.mvc.commons.Constants.FORWARD_REQUEST_FLAG;
+import static org.apache.skywalking.apm.plugin.spring.mvc.commons.Constants.ISOLATE_STRATEGY_KEY_IN_RUNNING_CONTEXT;
+import static org.apache.skywalking.apm.plugin.spring.mvc.commons.Constants.REQUEST_KEY_IN_RUNTIME_CONTEXT;
+import static org.apache.skywalking.apm.plugin.spring.mvc.commons.Constants.RESPONSE_KEY_IN_RUNTIME_CONTEXT;
+
 import java.lang.reflect.Method;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.skywalking.apm.agent.core.context.CarrierItem;
 import org.apache.skywalking.apm.agent.core.context.ContextCarrier;
 import org.apache.skywalking.apm.agent.core.context.ContextManager;
@@ -32,11 +39,6 @@ import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.InstanceM
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.MethodInterceptResult;
 import org.apache.skywalking.apm.network.trace.component.ComponentsDefine;
 import org.apache.skywalking.apm.plugin.spring.mvc.commons.EnhanceRequireObjectCache;
-
-import static org.apache.skywalking.apm.plugin.spring.mvc.commons.Constants.FORWARD_REQUEST_FLAG;
-import static org.apache.skywalking.apm.plugin.spring.mvc.commons.Constants.ISOLATE_STRATEGY_KEY_IN_RUNNING_CONTEXT;
-import static org.apache.skywalking.apm.plugin.spring.mvc.commons.Constants.REQUEST_KEY_IN_RUNTIME_CONTEXT;
-import static org.apache.skywalking.apm.plugin.spring.mvc.commons.Constants.RESPONSE_KEY_IN_RUNTIME_CONTEXT;
 
 /**
  * the abstract method inteceptor
@@ -77,14 +79,32 @@ public abstract class AbstractMethodInterceptor implements InstanceMethodsAround
                 next = next.next();
                 next.setHeadValue(request.getHeader(next.getHeadKey()));
             }
-
             AbstractSpan span = ContextManager.createEntrySpan(requestURL, contextCarrier);
+            span.tag("Controller", generateControllerName(method));
             Tags.URL.set(span, request.getRequestURL().toString());
             Tags.HTTP.METHOD.set(span, request.getMethod());
             span.setComponent(ComponentsDefine.SPRING_MVC_ANNOTATION);
             SpanLayer.asHttp(span);
         }
     }
+    
+    private String generateControllerName(Method method) {
+        StringBuilder controllerName = new StringBuilder();
+        controllerName.append(method.getDeclaringClass().getName());
+        controllerName.append("." + method.getName() + "(");
+        for (Class<?> classes :  method.getParameterTypes()) {
+        	controllerName.append(classes.getSimpleName() + ",");
+        }
+
+        if (method.getParameterTypes().length > 0) {
+        	controllerName.delete(controllerName.length() - 1, controllerName.length());
+        }
+
+        controllerName.append(")");
+
+        return controllerName.toString();
+    }
+
 
     @Override
     public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
