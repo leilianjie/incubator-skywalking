@@ -154,6 +154,7 @@ public class TracingContext implements AbstractTracerContext {
         }
 
         carrier.setDistributedTraceIds(this.segment.getRelatedGlobalTraces());
+        carrier.setUserId(this.segment.getUserId());
     }
 
     /**
@@ -167,6 +168,7 @@ public class TracingContext implements AbstractTracerContext {
         TraceSegmentRef ref = new TraceSegmentRef(carrier);
         this.segment.ref(ref);
         this.segment.relatedGlobalTraces(carrier.getDistributedTraceId());
+        this.segment.setUserId(carrier.getUserId());
         AbstractSpan span = this.activeSpan();
         if (span instanceof EntrySpan) {
             span.ref(ref);

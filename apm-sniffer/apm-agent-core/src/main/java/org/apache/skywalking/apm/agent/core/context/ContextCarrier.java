@@ -77,6 +77,8 @@ public class ContextCarrier implements Serializable {
      * {@link DistributedTraceId}, also known as TraceId
      */
     private DistributedTraceId primaryDistributedTraceId;
+    
+    private String userId;
 
     public CarrierItem items() {
         SW3CarrierItem carrierItem = new SW3CarrierItem(this, null);
@@ -100,7 +102,7 @@ public class ContextCarrier implements Serializable {
                 this.getPeerHost(),
                 this.getEntryOperationName(),
                 this.getParentOperationName(),
-                this.getPrimaryDistributedTraceId().encode());
+                this.getPrimaryDistributedTraceId().encode(), this.getUserId());
         } else {
             return "";
         }
@@ -113,8 +115,8 @@ public class ContextCarrier implements Serializable {
      */
     ContextCarrier deserialize(String text) {
         if (text != null) {
-            String[] parts = text.split("\\|", 8);
-            if (parts.length == 8) {
+            String[] parts = text.split("\\|", 9);
+            if (parts.length == 9) {
                 try {
                     this.traceSegmentId = new ID(parts[0]);
                     this.spanId = Integer.parseInt(parts[1]);
@@ -124,6 +126,7 @@ public class ContextCarrier implements Serializable {
                     this.entryOperationName = parts[5];
                     this.parentOperationName = parts[6];
                     this.primaryDistributedTraceId = new PropagatedTraceId(parts[7]);
+                    this.userId = parts[8];
                 } catch (NumberFormatException e) {
 
                 }
@@ -228,5 +231,13 @@ public class ContextCarrier implements Serializable {
     public void setEntryApplicationInstanceId(int entryApplicationInstanceId) {
         this.entryApplicationInstanceId = entryApplicationInstanceId;
     }
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 }

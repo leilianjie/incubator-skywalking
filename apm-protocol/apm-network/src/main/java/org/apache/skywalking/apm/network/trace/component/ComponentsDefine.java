@@ -27,7 +27,11 @@ package org.apache.skywalking.apm.network.trace.component;
 public class ComponentsDefine {
 
     public static final OfficialComponent TOMCAT = new OfficialComponent(1, "Tomcat");
-
+    
+    public static final OfficialComponent WEBSPHERE = new OfficialComponent(101, "Websphere");
+    
+    public static final OfficialComponent WEBLOGIC = new OfficialComponent(102, "Weblogic");
+    
     public static final OfficialComponent HTTPCLIENT = new OfficialComponent(2, "HttpClient");
 
     public static final OfficialComponent DUBBO = new OfficialComponent(3, "Dubbo");
