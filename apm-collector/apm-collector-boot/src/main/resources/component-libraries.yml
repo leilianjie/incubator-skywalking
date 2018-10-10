@@ -29,7 +29,12 @@
 # languages
 # ######
 # Languages declare which languages are using this component. Multi languages should be separated by `,`
-
+Websphere:
+  id: 101
+  languages: Java
+Weblogic:
+  id: 102
+  languages: Java
 Tomcat:
   id: 1
   languages: Java
@@ -155,6 +160,12 @@ mongodb-driver:
   languages: Java
 SOFARPC:
   id: 43
+  languages: Java
+FC_REQUEST:
+  id: 44
+  languages: Java
+FC_SRV:
+  id: 45
   languages: Java
 
 # .NET/.NET Core components
