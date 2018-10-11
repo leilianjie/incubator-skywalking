@@ -65,7 +65,7 @@ public class WeblogicHandleRequestInterceptor implements InstanceMethodsAroundIn
         AbstractSpan span = ContextManager.createEntrySpan(request.getRequestURI(), contextCarrier);
         Tags.URL.set(span, generateRequestURL(request));
         Tags.HTTP.METHOD.set(span, request.getMethod());
-        span.setComponent(ComponentsDefine.WEBSPHERE);
+        span.setComponent(ComponentsDefine.WEBLOGIC);
         SpanLayer.asHttp(span);
 
     }
@@ -74,7 +74,7 @@ public class WeblogicHandleRequestInterceptor implements InstanceMethodsAroundIn
     	StringBuilder url = new StringBuilder();
     	url.append("http://")
     	.append(request.getServerName()).append(":").append(request.getServerPort())
-    	.append(request.getRequestURI()).append("?").append(request.getQueryString());
+    	.append(request.getRequestURI()).append("?").append(request.getQueryString()==null?"":request.getQueryString());
 		return url.toString();
 	}
 
