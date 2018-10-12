@@ -79,7 +79,7 @@ public class WebsphereHandleRequestInterceptor implements InstanceMethodsAroundI
     	StringBuilder url = new StringBuilder();
     	url.append(request.getScheme()).append("://")
     	.append(request.getServerName()).append(":").append(request.getServerPort())
-    	.append(request.getRequestURI()).append("?").append(request.getQueryString());
+    	.append(request.getRequestURI()).append("?").append(request.getQueryString()==null? "":request.getQueryString());
 		return url.toString();
 	}
 

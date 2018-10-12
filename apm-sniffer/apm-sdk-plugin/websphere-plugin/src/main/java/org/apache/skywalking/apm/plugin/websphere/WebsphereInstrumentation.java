@@ -62,7 +62,7 @@ public class WebsphereInstrumentation extends ClassInstanceMethodsEnhancePluginD
             new InstanceMethodsInterceptPoint() {
                 @Override
                 public ElementMatcher<MethodDescription> getMethodsMatcher() {
-                    return named("handleRequest").and(takesArguments(com.ibm.websphere.servlet.request.IRequest.class, com.ibm.websphere.servlet.response.IResponse.class));
+                    return named("handleRequest").and(takesArguments(2));
                 }
 
                 @Override
