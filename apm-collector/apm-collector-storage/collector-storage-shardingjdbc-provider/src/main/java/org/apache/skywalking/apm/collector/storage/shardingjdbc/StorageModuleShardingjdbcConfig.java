@@ -24,4 +24,50 @@ import org.apache.skywalking.apm.collector.client.shardingjdbc.ShardingjdbcClien
  * @author linjiaqi
  */
 class StorageModuleShardingjdbcConfig extends ShardingjdbcClientConfig {
+	private int traceDataTTL = 90;
+	private int minuteMetricDataTTL = 90;
+	private int hourMetricDataTTL = 36;
+	private int dayMetricDataTTL = 45;
+	private int monthMetricDataTTL = 18;
+
+	public int getTraceDataTTL() {
+		return traceDataTTL;
+	}
+
+	public void setTraceDataTTL(int traceDataTTL) {
+		this.traceDataTTL = traceDataTTL;
+	}
+
+	public int getMinuteMetricDataTTL() {
+		return minuteMetricDataTTL;
+	}
+
+	public void setMinuteMetricDataTTL(int minuteMetricDataTTL) {
+		this.minuteMetricDataTTL = minuteMetricDataTTL;
+	}
+
+	public int getHourMetricDataTTL() {
+		return hourMetricDataTTL;
+	}
+
+	public void setHourMetricDataTTL(int hourMetricDataTTL) {
+		this.hourMetricDataTTL = hourMetricDataTTL;
+	}
+
+	public int getDayMetricDataTTL() {
+		return dayMetricDataTTL;
+	}
+
+	public void setDayMetricDataTTL(int dayMetricDataTTL) {
+		this.dayMetricDataTTL = dayMetricDataTTL;
+	}
+
+	public int getMonthMetricDataTTL() {
+		return monthMetricDataTTL;
+	}
+
+	public void setMonthMetricDataTTL(int monthMetricDataTTL) {
+		this.monthMetricDataTTL = monthMetricDataTTL;
+	}
+
 }
