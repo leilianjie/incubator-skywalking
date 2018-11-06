@@ -105,10 +105,6 @@ public interface AbstractTracerContext {
      */
     void stopSpan(AbstractSpan span);
 
-    /**
-     * @return the runtime context from current tracing context.
-     */
-    RuntimeContext getRuntimeContext();
     
     /**
      * user the data belongs to

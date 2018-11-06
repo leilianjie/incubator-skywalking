@@ -28,10 +28,6 @@ public class ComponentsDefine {
 
     public static final OfficialComponent TOMCAT = new OfficialComponent(1, "Tomcat");
     
-    public static final OfficialComponent WEBSPHERE = new OfficialComponent(101, "Websphere");
-    
-    public static final OfficialComponent WEBLOGIC = new OfficialComponent(102, "Weblogic");
-    
     public static final OfficialComponent HTTPCLIENT = new OfficialComponent(2, "HttpClient");
 
     public static final OfficialComponent DUBBO = new OfficialComponent(3, "Dubbo");
@@ -95,11 +91,23 @@ public class ComponentsDefine {
     public static final OfficialComponent MONGO_DRIVER = new OfficialComponent(42, "mongodb-driver");
 
     public static final OfficialComponent SOFARPC =  new OfficialComponent(43, "SOFARPC");
-    
-    public static final OfficialComponent FC_REQUEST =  new OfficialComponent(44, "FC_REQUEST");
-    
-    public static final OfficialComponent FC_SRV =  new OfficialComponent(45, "FC_SRV");
 
+    public static final  OfficialComponent ACTIVEMQ_PRODUCER = new OfficialComponent(45,"activemq-producer");
+
+    public static final  OfficialComponent ACTIVEMQ_CONSUMER = new OfficialComponent(46,"activemq-consumer");
+
+    public static final OfficialComponent TRANSPORT_CLIENT =  new OfficialComponent(48, "transport-client");
+
+    public static final OfficialComponent UNDERTOW =  new OfficialComponent(49, "Undertow");
+	    
+    public static final OfficialComponent WEBSPHERE = new OfficialComponent(50, "Websphere");
+    
+    public static final OfficialComponent WEBLOGIC = new OfficialComponent(51, "Weblogic");
+	    
+    public static final OfficialComponent FC_REQUEST =  new OfficialComponent(52, "FC_REQUEST");
+    
+    public static final OfficialComponent FC_SRV =  new OfficialComponent(53, "FC_SRV");
+	
     private static ComponentsDefine INSTANCE = new ComponentsDefine();
 
     private String[] components;
@@ -109,7 +117,7 @@ public class ComponentsDefine {
     }
 
     public ComponentsDefine() {
-        components = new String[44];
+        components = new String[54];
         addComponent(TOMCAT);
         addComponent(HTTPCLIENT);
         addComponent(DUBBO);
@@ -143,6 +151,10 @@ public class ComponentsDefine {
         addComponent(KAFKA_CONSUMER);
         addComponent(MONGO_DRIVER);
         addComponent(SOFARPC);
+        addComponent(ACTIVEMQ_PRODUCER);
+        addComponent(ACTIVEMQ_CONSUMER);
+        addComponent(TRANSPORT_CLIENT);
+        addComponent(UNDERTOW);
     }
 
     private void addComponent(OfficialComponent component) {

@@ -29,12 +29,6 @@
 # languages
 # ######
 # Languages declare which languages are using this component. Multi languages should be separated by `,`
-Websphere:
-  id: 101
-  languages: Java
-Weblogic:
-  id: 102
-  languages: Java
 Tomcat:
   id: 1
   languages: Java
@@ -161,11 +155,35 @@ mongodb-driver:
 SOFARPC:
   id: 43
   languages: Java
-FC_REQUEST:
+ActiveMQ:
   id: 44
   languages: Java
-FC_SRV:
+activemq-producer:
   id: 45
+  languages: Java
+activemq-consumer:
+  id: 46
+  languages: Java
+Elasticsearch:
+  id: 47
+  languages: Java
+transport-client:
+  id: 48
+  languages: Java
+Undertow:
+  id: 49
+  languages: Java
+Websphere:
+  id: 50
+  languages: Java
+Weblogic:
+  id: 51
+  languages: Java
+FC_REQUEST:
+  id: 52
+  languages: Java
+FC_SRV:
+  id: 53
   languages: Java
 
 # .NET/.NET Core components
@@ -224,6 +242,12 @@ HttpServer:
 express:
   id: 4002
   languages: Node.js
+Egg:
+  id: 4003
+  languages: Node.js
+Koa:
+  id: 4004
+  languages: Node.js
 
 # Component Server mapping defines the server display names of some components
 # e.g.
@@ -234,6 +258,8 @@ Component-Server-Mappings:
   rocketMQ-consumer: RocketMQ
   kafka-producer: Kafka
   kafka-consumer: Kafka
+  activemq-producer: ActiveMQ
+  activemq-consumer: ActiveMQ
   postgresql-jdbc-driver: PostgreSQL
   Xmemcached: Memcached
   Spymemcached: Memcached
@@ -249,4 +275,4 @@ Component-Server-Mappings:
   EntityFrameworkCore.Sqlite: SQLite
   Pomelo.EntityFrameworkCore.MySql: Mysql
   Npgsql.EntityFrameworkCore.PostgreSQL: PostgreSQL
-
+  transport-client: Elasticsearch

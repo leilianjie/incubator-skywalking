@@ -9,6 +9,7 @@
   * [Resin](http://www.caucho.com/resin-4.0/) 3 (Optional¹)
   * [Resin](http://www.caucho.com/resin-4.0/) 4 (Optional¹)
   * [Jetty Server](http://www.eclipse.org/jetty/) 9
+  * [Undertow](http://undertow.io/)  2.0.0.Final -> 2.0.13.Final
 * HTTP Client
   * [Feign](https://github.com/OpenFeign/feign) 9.x
   * [Netflix Spring Cloud Feign](https://github.com/spring-cloud/spring-cloud-netflix/tree/master/spring-cloud-starter-feign) 1.1.x, 1.2.x, 1.3.x
@@ -33,6 +34,7 @@
 * MQ
   * [RocketMQ](https://github.com/apache/rocketmq) 4.x
   * [Kafka](http://kafka.apache.org) 0.11.0.0 -> 1.0
+  * [ActiveMQ](https://github.com/apache/activemq) 5.x
 * NoSQL
   * Redis
     * [Jedis](https://github.com/xetorthio/jedis) 2.x
@@ -40,6 +42,8 @@
   * Memcached Client
     * [Spymemcached](https://github.com/couchbase/spymemcached) 2.x
     * [Xmemcached](https://github.com/killme2008/xmemcached) 2.x
+  * [Elasticsearch](https://github.com/elastic/elasticsearch)
+    * [transport-client](https://github.com/elastic/elasticsearch/tree/master/client/transport) 5.2.x-5.6.x
 * Service Discovery
   * [Netflix Eureka](https://github.com/Netflix/eureka)
 * Spring Ecosystem

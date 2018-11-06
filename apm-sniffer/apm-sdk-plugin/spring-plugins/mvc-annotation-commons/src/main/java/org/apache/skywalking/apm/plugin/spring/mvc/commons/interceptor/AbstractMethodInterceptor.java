@@ -18,16 +18,9 @@
 
 package org.apache.skywalking.apm.plugin.spring.mvc.commons.interceptor;
 
-import static org.apache.skywalking.apm.plugin.spring.mvc.commons.Constants.FORWARD_REQUEST_FLAG;
-import static org.apache.skywalking.apm.plugin.spring.mvc.commons.Constants.ISOLATE_STRATEGY_KEY_IN_RUNNING_CONTEXT;
-import static org.apache.skywalking.apm.plugin.spring.mvc.commons.Constants.REQUEST_KEY_IN_RUNTIME_CONTEXT;
-import static org.apache.skywalking.apm.plugin.spring.mvc.commons.Constants.RESPONSE_KEY_IN_RUNTIME_CONTEXT;
-
 import java.lang.reflect.Method;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.skywalking.apm.agent.core.context.CarrierItem;
 import org.apache.skywalking.apm.agent.core.context.ContextCarrier;
 import org.apache.skywalking.apm.agent.core.context.ContextManager;
@@ -39,6 +32,10 @@ import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.InstanceM
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.MethodInterceptResult;
 import org.apache.skywalking.apm.network.trace.component.ComponentsDefine;
 import org.apache.skywalking.apm.plugin.spring.mvc.commons.EnhanceRequireObjectCache;
+
+import static org.apache.skywalking.apm.plugin.spring.mvc.commons.Constants.FORWARD_REQUEST_FLAG;
+import static org.apache.skywalking.apm.plugin.spring.mvc.commons.Constants.REQUEST_KEY_IN_RUNTIME_CONTEXT;
+import static org.apache.skywalking.apm.plugin.spring.mvc.commons.Constants.RESPONSE_KEY_IN_RUNTIME_CONTEXT;
 
 /**
  * the abstract method inteceptor
@@ -67,44 +64,22 @@ public abstract class AbstractMethodInterceptor implements InstanceMethodsAround
             requestURL = pathMappingCache.findPathMapping(method);
         }
 
-        String hystrixIsolateStrategy = (String)ContextManager.getRuntimeContext().get(ISOLATE_STRATEGY_KEY_IN_RUNNING_CONTEXT);
         HttpServletRequest request = (HttpServletRequest)ContextManager.getRuntimeContext().get(REQUEST_KEY_IN_RUNTIME_CONTEXT);
-
-        if (hystrixIsolateStrategy != null) {
-            ContextManager.createLocalSpan(requestURL);
-        } else if (request != null) {
+        if (request != null) {
             ContextCarrier contextCarrier = new ContextCarrier();
             CarrierItem next = contextCarrier.items();
             while (next.hasNext()) {
                 next = next.next();
                 next.setHeadValue(request.getHeader(next.getHeadKey()));
             }
+
             AbstractSpan span = ContextManager.createEntrySpan(requestURL, contextCarrier);
-            span.tag("Controller", generateControllerName(method));
             Tags.URL.set(span, request.getRequestURL().toString());
             Tags.HTTP.METHOD.set(span, request.getMethod());
             span.setComponent(ComponentsDefine.SPRING_MVC_ANNOTATION);
             SpanLayer.asHttp(span);
         }
     }
-    
-    private String generateControllerName(Method method) {
-        StringBuilder controllerName = new StringBuilder();
-        controllerName.append(method.getDeclaringClass().getName());
-        controllerName.append("." + method.getName() + "(");
-        for (Class<?> classes :  method.getParameterTypes()) {
-        	controllerName.append(classes.getSimpleName() + ",");
-        }
-
-        if (method.getParameterTypes().length > 0) {
-        	controllerName.delete(controllerName.length() - 1, controllerName.length());
-        }
-
-        controllerName.append(")");
-
-        return controllerName.toString();
-    }
-
 
     @Override
     public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
@@ -118,18 +93,19 @@ public abstract class AbstractMethodInterceptor implements InstanceMethodsAround
             return ret;
         }
 
-        String hystrixIsolateStrategy = (String)ContextManager.getRuntimeContext().get(ISOLATE_STRATEGY_KEY_IN_RUNNING_CONTEXT);
         HttpServletResponse response = (HttpServletResponse)ContextManager.getRuntimeContext().get(RESPONSE_KEY_IN_RUNTIME_CONTEXT);
-
-        if (hystrixIsolateStrategy != null) {
-            ContextManager.stopSpan();
-        } else if (response != null) {
-            AbstractSpan span = ContextManager.activeSpan();
-            if (response.getStatus() >= 400) {
-                span.errorOccurred();
-                Tags.STATUS_CODE.set(span, Integer.toString(response.getStatus()));
+        try {
+            if (response != null) {
+                AbstractSpan span = ContextManager.activeSpan();
+                if (response.getStatus() >= 400) {
+                    span.errorOccurred();
+                    Tags.STATUS_CODE.set(span, Integer.toString(response.getStatus()));
+                }
+                ContextManager.stopSpan();
             }
-            ContextManager.stopSpan();
+        } finally {
+            ContextManager.getRuntimeContext().remove(REQUEST_KEY_IN_RUNTIME_CONTEXT);
+            ContextManager.getRuntimeContext().remove(RESPONSE_KEY_IN_RUNTIME_CONTEXT);
         }
 
         return ret;

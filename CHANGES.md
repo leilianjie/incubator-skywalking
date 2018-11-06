@@ -2,6 +2,63 @@ Changes by Version
 ==================
 Release Notes.
 
+5.0.0-GA
+------------------
+
+#### Agent Changes
+  - Add several package names ignore in agent settings. Classes in these packages would be enhanced, even plugin declared.
+  - Support Undertow 2.x plugin.
+  - Fix wrong class names of Motan plugin, not a feature related issue, just naming.
+
+#### Collector Changes
+  - Make buffer file handler close more safety.
+  - Fix NPE in AlarmService
+
+#### Documents
+  - Fix compiling doc link.
+  - Update new live demo address.
+
+
+5.0.0-RC2
+------------------
+
+#### Agent Changes
+  - Support ActiveMQ 5.x
+  - Support RuntimeContext used out of TracingContext.
+  - Support Oracle ojdbc8 Plugin.
+  - Support ElasticSearch client transport 5.2-5.6 Plugin
+  - Support using agent.config with given path through system properties.
+  - Add a new way to transmit the Request and Response, to avoid bugs in Hytrix scenarios.
+  - Fix HTTPComponent client v4 operation name is empty.
+  - Fix 2 possible NPEs in Spring plugin.
+  - Fix a possible span leak in SpringMVC plugin.
+  - Fix NPE in Spring callback plugin.
+  
+#### Collector Changes
+  - Add GZip support for Zipkin receiver.
+  - Add new component IDs for nodejs.
+  - Fix Zipkin span receiver may miss data in request.
+  - Optimize codes in heatmap calculation. Reduce unnecessary divide.
+  - Fix NPE in Alarm content generation.
+  - Fix the precision lost in `ServiceNameService#startTimeMillis`.
+  - Fix GC count is 0.
+  - Fix topology breaks when RPC client uses the async thread call.
+  
+#### UI Changes
+  - Fix UI port can't be set by startup script in Windows.
+  - Fix Topology self link error.
+  - Fix stack color mismatch label color in gc time chart.
+  
+#### Documents
+  - Add users list.
+  - Fix several document typo.
+  - Sync the Chinese documents.
+  - Add OpenAPM badge.
+  - Add icon/font documents to NOTICE files.
+  
+[Issues and Pull requests](https://github.com/apache/incubator-skywalking/milestone/27?closed=1)
+
+
 5.0.0-beta2
 ------------------
 
@@ -64,7 +121,7 @@ Release Notes.
   - Update UI licenses.
   - Add incubating sections in doc.
 
-[Issues and Pull requests](https://github.com/apache/incubator-skywalking/milestone/28)
+[Issues and Pull requests](https://github.com/apache/incubator-skywalking/milestone/28?closed=1)
   
 5.0.0-beta
 ------------------
@@ -126,7 +183,7 @@ Release Notes.
    - Add a FAQ about, `Agent or collector version upgrade`.
    - Sync all English document to Chinese.
  
-[Issues and Pull requests](https://github.com/apache/incubator-skywalking/milestone/24)
+[Issues and Pull requests](https://github.com/apache/incubator-skywalking/milestone/24?closed=1)
  
 5.0.0-alpha
 ------------------
@@ -163,4 +220,4 @@ Release Notes.
 #### UI Changes
  - New 5.0.0 UI!!!
  
- [Issues and Pull requests](https://github.com/apache/incubator-skywalking/milestone/17)
+ [Issues and Pull requests](https://github.com/apache/incubator-skywalking/milestone/17?closed=1)
