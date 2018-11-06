@@ -102,13 +102,6 @@ public class IgnoredTracerContext implements AbstractTracerContext {
         }
     }
 
-    @Override public RuntimeContext getRuntimeContext() {
-        if (runtimeContext == null) {
-            runtimeContext = new RuntimeContext();
-        }
-        return runtimeContext;
-    }
-
     public static class ListenerManager {
         private static List<IgnoreTracerContextListener> LISTENERS = new LinkedList<IgnoreTracerContextListener>();
 
