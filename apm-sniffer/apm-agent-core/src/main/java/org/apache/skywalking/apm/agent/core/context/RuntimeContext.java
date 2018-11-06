@@ -33,7 +33,12 @@ import org.apache.skywalking.apm.agent.core.conf.RuntimeContextConfiguration;
  * @author wusheng, ascrutae
  */
 public class RuntimeContext {
+    private final ThreadLocal<RuntimeContext> contextThreadLocal;
     private Map context = new ConcurrentHashMap(0);
+
+    public RuntimeContext(ThreadLocal<RuntimeContext> contextThreadLocal) {
+        this.contextThreadLocal = contextThreadLocal;
+    }
 
     public void put(Object key, Object value) {
         context.put(key, value);
@@ -47,4 +52,31 @@ public class RuntimeContext {
         return (T)context.get(key);
     }
 
+    public void remove(Object key) {
+        context.remove(key);
+
+        if (context.isEmpty()) {
+            contextThreadLocal.remove();
+        }
+    }
+
+    public RuntimeContextSnapshot capture() {
+        Map runtimeContextMap = new HashMap();
+        for (String key : RuntimeContextConfiguration.NEED_PROPAGATE_CONTEXT_KEY) {
+            Object value = this.get(key);
+            if (value != null) {
+                runtimeContextMap.put(key, value);
+            }
+        }
+
+        return new RuntimeContextSnapshot(runtimeContextMap);
+    }
+
+    public void accept(RuntimeContextSnapshot snapshot) {
+        Iterator<Map.Entry> iterator = snapshot.iterator();
+        while (iterator.hasNext()) {
+            Map.Entry runtimeContextItem = iterator.next();
+            ContextManager.getRuntimeContext().put(runtimeContextItem.getKey(), runtimeContextItem.getValue());
+        }
+    }
 }

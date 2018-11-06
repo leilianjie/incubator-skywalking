@@ -205,7 +205,7 @@ public class ContextManager implements TracingContextListener, BootService, Igno
     public static RuntimeContext getRuntimeContext() {
         RuntimeContext runtimeContext = RUNTIME_CONTEXT.get();
         if (runtimeContext == null) {
-            runtimeContext = new RuntimeContext();
+            runtimeContext = new RuntimeContext(RUNTIME_CONTEXT);
             RUNTIME_CONTEXT.set(runtimeContext);
         }
 
