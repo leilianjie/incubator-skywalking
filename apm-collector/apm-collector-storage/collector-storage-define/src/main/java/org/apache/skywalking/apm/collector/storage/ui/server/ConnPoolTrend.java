@@ -16,16 +16,36 @@
  *
  */
 
-package org.apache.skywalking.apm.collector.analysis.jvm.define.graph;
+package org.apache.skywalking.apm.collector.storage.ui.server;
+
+import java.util.List;
 
 /**
  * @author peng-yongsheng
  */
-public class GraphIdDefine {
-    public static final int CPU_METRIC_PERSISTENCE_GRAPH_ID = 300;
-    public static final int GC_METRIC_PERSISTENCE_GRAPH_ID = 301;
-    public static final int MEMORY_METRIC_PERSISTENCE_GRAPH_ID = 303;
-    public static final int MEMORY_POOL_METRIC_PERSISTENCE_GRAPH_ID = 304;
-    public static final int CONN_POOL_METRIC_PERSISTENCE_GRAPH_ID = 305;
-    public static final int THREAD_POOL_METRIC_PERSISTENCE_GRAPH_ID = 306;
+public class ConnPoolTrend {
+	
+	private List<String> pools;
+    private List<Integer> max;
+    private List<Integer> active;
+    
+	public List<String> getPools() {
+		return pools;
+	}
+	public void setPools(List<String> pools) {
+		this.pools = pools;
+	}
+	public List<Integer> getMax() {
+		return max;
+	}
+	public void setMax(List<Integer> max) {
+		this.max = max;
+	}
+	public List<Integer> getActive() {
+		return active;
+	}
+	public void setActive(List<Integer> active) {
+		this.active = active;
+	}
+
 }

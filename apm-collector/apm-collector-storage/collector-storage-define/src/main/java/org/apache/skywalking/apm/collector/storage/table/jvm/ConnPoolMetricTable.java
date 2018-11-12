@@ -16,16 +16,21 @@
  *
  */
 
-package org.apache.skywalking.apm.collector.analysis.jvm.define.graph;
+package org.apache.skywalking.apm.collector.storage.table.jvm;
+
+import org.apache.skywalking.apm.collector.core.data.ColumnName;
+import org.apache.skywalking.apm.collector.storage.table.register.InstanceTable;
 
 /**
  * @author peng-yongsheng
  */
-public class GraphIdDefine {
-    public static final int CPU_METRIC_PERSISTENCE_GRAPH_ID = 300;
-    public static final int GC_METRIC_PERSISTENCE_GRAPH_ID = 301;
-    public static final int MEMORY_METRIC_PERSISTENCE_GRAPH_ID = 303;
-    public static final int MEMORY_POOL_METRIC_PERSISTENCE_GRAPH_ID = 304;
-    public static final int CONN_POOL_METRIC_PERSISTENCE_GRAPH_ID = 305;
-    public static final int THREAD_POOL_METRIC_PERSISTENCE_GRAPH_ID = 306;
+public interface ConnPoolMetricTable extends InstanceTable {
+	String TABLE = "conn_pool_metric";
+
+	ColumnName POOL_NAME = new ColumnName("pool_name", "pn");
+	
+    ColumnName MAX = new ColumnName("max", "max");
+
+    ColumnName ACTIVE = new ColumnName("active", "active");
+
 }

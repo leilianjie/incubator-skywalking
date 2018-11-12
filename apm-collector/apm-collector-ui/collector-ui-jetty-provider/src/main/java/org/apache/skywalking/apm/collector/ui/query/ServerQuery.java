@@ -71,6 +71,18 @@ public class ServerQuery implements Query {
         long endTimeBucket = DurationUtils.INSTANCE.exchangeToTimeBucket(duration.getEnd());
         return getServerService().getServerThroughputTrend(serverId, duration.getStep(), startTimeBucket, endTimeBucket);
     }
+    
+    public ThreadPoolTrend getThreadPoolTrend(int serverId, Duration duration) throws ParseException {
+    	long startTimeBucket = DurationUtils.INSTANCE.exchangeToTimeBucket(duration.getStart());
+    	long endTimeBucket = DurationUtils.INSTANCE.exchangeToTimeBucket(duration.getEnd());
+    	return getServerService().getThreadPoolTrend(serverId, duration.getStep(), startTimeBucket, endTimeBucket);
+    }
+    
+    public ConnPoolTrend getConnPoolTrend(int serverId, Duration duration) throws ParseException {
+    	long startTimeBucket = DurationUtils.INSTANCE.exchangeToTimeBucket(duration.getStart());
+    	long endTimeBucket = DurationUtils.INSTANCE.exchangeToTimeBucket(duration.getEnd());
+    	return getServerService().getConnPoolTrend(serverId, duration.getStep(), startTimeBucket, endTimeBucket);
+    }
 
     public CPUTrend getCPUTrend(int serverId, Duration duration) throws ParseException {
         long startTimeBucket = DurationUtils.INSTANCE.exchangeToTimeBucket(duration.getStart());

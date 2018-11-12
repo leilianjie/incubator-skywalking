@@ -16,16 +16,13 @@
  *
  */
 
-package org.apache.skywalking.apm.collector.analysis.jvm.define.graph;
+package org.apache.skywalking.apm.collector.storage.dao.tpool;
+
+import org.apache.skywalking.apm.collector.storage.base.dao.IPersistenceDAO;
+import org.apache.skywalking.apm.collector.storage.table.jvm.ThreadPoolMetric;
 
 /**
  * @author peng-yongsheng
  */
-public class GraphIdDefine {
-    public static final int CPU_METRIC_PERSISTENCE_GRAPH_ID = 300;
-    public static final int GC_METRIC_PERSISTENCE_GRAPH_ID = 301;
-    public static final int MEMORY_METRIC_PERSISTENCE_GRAPH_ID = 303;
-    public static final int MEMORY_POOL_METRIC_PERSISTENCE_GRAPH_ID = 304;
-    public static final int CONN_POOL_METRIC_PERSISTENCE_GRAPH_ID = 305;
-    public static final int THREAD_POOL_METRIC_PERSISTENCE_GRAPH_ID = 306;
+public interface IThreadPoolDayMetricPersistenceDAO<INSERT, UPDATE, STREAM_DATA extends ThreadPoolMetric> extends IPersistenceDAO<INSERT, UPDATE, STREAM_DATA> {
 }

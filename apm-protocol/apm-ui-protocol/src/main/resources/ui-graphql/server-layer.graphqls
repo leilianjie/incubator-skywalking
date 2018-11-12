@@ -50,6 +50,19 @@ type MemoryTrend {
     maxNoheap: [Int!]!
 }
 
+type ThreadPoolTrend {
+    pools: [Int!]!
+    current: [Int!]!
+    max: [Int!]!
+    busy: [Int!]!
+}
+
+type ConnPoolTrend {
+    pools: [String!]!
+    max: [Int!]!
+    active: [Int!]!
+}
+
 extend type Query {
     searchServer(keyword: String!, duration: Duration!): [AppServerInfo!]!
     getAllServer(applicationId: ID!, duration: Duration!): [AppServerInfo!]!
@@ -58,4 +71,6 @@ extend type Query {
     getCPUTrend(serverId: ID!, duration: Duration!): CPUTrend
     getGCTrend(serverId: ID!, duration: Duration!): GCTrend
     getMemoryTrend(serverId: ID!, duration: Duration!): MemoryTrend
+    getConnPoolTrend(serverId: ID!, duration: Duration!): ConnPoolTrend
+    getThreadPoolTrend(serverId: ID!, duration: Duration!): ThreadPoolTrend
 }

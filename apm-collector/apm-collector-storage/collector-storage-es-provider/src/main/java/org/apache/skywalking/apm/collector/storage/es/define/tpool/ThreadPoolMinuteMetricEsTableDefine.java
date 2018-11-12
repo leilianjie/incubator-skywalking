@@ -16,16 +16,22 @@
  *
  */
 
-package org.apache.skywalking.apm.collector.analysis.jvm.define.graph;
+package org.apache.skywalking.apm.collector.storage.es.define.tpool;
+
+import org.apache.skywalking.apm.collector.core.storage.TimePyramid;
+import org.apache.skywalking.apm.collector.core.util.Const;
+import org.apache.skywalking.apm.collector.storage.table.jvm.MemoryPoolMetricTable;
 
 /**
  * @author peng-yongsheng
  */
-public class GraphIdDefine {
-    public static final int CPU_METRIC_PERSISTENCE_GRAPH_ID = 300;
-    public static final int GC_METRIC_PERSISTENCE_GRAPH_ID = 301;
-    public static final int MEMORY_METRIC_PERSISTENCE_GRAPH_ID = 303;
-    public static final int MEMORY_POOL_METRIC_PERSISTENCE_GRAPH_ID = 304;
-    public static final int CONN_POOL_METRIC_PERSISTENCE_GRAPH_ID = 305;
-    public static final int THREAD_POOL_METRIC_PERSISTENCE_GRAPH_ID = 306;
+public class ThreadPoolMinuteMetricEsTableDefine extends AbstractThreadPoolMetricEsTableDefine {
+
+    public ThreadPoolMinuteMetricEsTableDefine() {
+        super(MemoryPoolMetricTable.TABLE + Const.ID_SPLIT + TimePyramid.Minute.getName());
+    }
+
+    @Override public int refreshInterval() {
+        return 2;
+    }
 }

@@ -16,16 +16,23 @@
  *
  */
 
-package org.apache.skywalking.apm.collector.analysis.jvm.define.graph;
+package org.apache.skywalking.apm.collector.analysis.jvm.provider.worker.tpool;
+
+import org.apache.skywalking.apm.collector.analysis.jvm.define.graph.WorkerIdDefine;
+import org.apache.skywalking.apm.collector.core.graph.Next;
+import org.apache.skywalking.apm.collector.core.graph.NodeProcessor;
+import org.apache.skywalking.apm.collector.storage.table.jvm.ThreadPoolMetric;
 
 /**
  * @author peng-yongsheng
  */
-public class GraphIdDefine {
-    public static final int CPU_METRIC_PERSISTENCE_GRAPH_ID = 300;
-    public static final int GC_METRIC_PERSISTENCE_GRAPH_ID = 301;
-    public static final int MEMORY_METRIC_PERSISTENCE_GRAPH_ID = 303;
-    public static final int MEMORY_POOL_METRIC_PERSISTENCE_GRAPH_ID = 304;
-    public static final int CONN_POOL_METRIC_PERSISTENCE_GRAPH_ID = 305;
-    public static final int THREAD_POOL_METRIC_PERSISTENCE_GRAPH_ID = 306;
+public class ThreadPoolMetricBridgeNode implements NodeProcessor<ThreadPoolMetric, ThreadPoolMetric> {
+
+    @Override public int id() {
+        return WorkerIdDefine.THREAD_POOL_METRIC_BRIDGE_NODE_ID;
+    }
+
+    @Override public void process(ThreadPoolMetric metric, Next<ThreadPoolMetric> next) {
+        next.execute(metric);
+    }
 }

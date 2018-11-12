@@ -42,6 +42,8 @@ public class JVMMetricsServiceHandler extends JVMMetricsServiceGrpc.JVMMetricsSe
     private final IMemoryMetricService memoryMetricService;
     private final IMemoryPoolMetricService memoryPoolMetricService;
     private final IInstanceHeartBeatService instanceHeartBeatService;
+    private final IConnPoolMetricService connPoolMetricService;
+    private final IThreadPoolMetricService threadPoolMetricService;
 
     public JVMMetricsServiceHandler(ModuleManager moduleManager) {
         this.cpuMetricService = moduleManager.find(AnalysisJVMModule.NAME).getService(ICpuMetricService.class);
@@ -49,6 +51,8 @@ public class JVMMetricsServiceHandler extends JVMMetricsServiceGrpc.JVMMetricsSe
         this.memoryMetricService = moduleManager.find(AnalysisJVMModule.NAME).getService(IMemoryMetricService.class);
         this.memoryPoolMetricService = moduleManager.find(AnalysisJVMModule.NAME).getService(IMemoryPoolMetricService.class);
         this.instanceHeartBeatService = moduleManager.find(AnalysisMetricModule.NAME).getService(IInstanceHeartBeatService.class);
+        this.connPoolMetricService = moduleManager.find(AnalysisMetricModule.NAME).getService(IConnPoolMetricService.class);
+        this.threadPoolMetricService = moduleManager.find(AnalysisMetricModule.NAME).getService(IThreadPoolMetricService.class);
     }
 
     @Override public void collect(JVMMetrics request, StreamObserver<Downstream> responseObserver) {
@@ -65,10 +69,20 @@ public class JVMMetricsServiceHandler extends JVMMetricsServiceGrpc.JVMMetricsSe
             sendToMemoryPoolMetricService(instanceId, minuteTimeBucket, metric.getMemoryPoolList());
             sendToGCMetricService(instanceId, minuteTimeBucket, metric.getGcList());
             sendToInstanceHeartBeatService(instanceId, metric.getTime());
+            sendToConnPoolMetricService(instanceId, minuteTimeBucket, metric.getConnPoolList());
+            sendToThreadPoolMetricService(instanceId, minuteTimeBucket, metric.getThreadPoolList());
         });
 
         responseObserver.onNext(Downstream.newBuilder().build());
         responseObserver.onCompleted();
+    }
+    
+    private void sendToConnPoolMetricService(int instanceId, long timeBucket, List<ConnPool> connPools) {
+    	connPools.forEach(connPool -> connPoolMetricService.send(connPool.getPoolName(), instanceId, timeBucket, connPool.getMax(), connPool.getActive()));
+    }
+    
+    private void sendToThreadPoolMetricService(int instanceId, long timeBucket, List<ThreadPool> threadPools) {
+    	threadPools.forEach(threadPool -> threadPoolMetricService.send(threadPool.getPoolName(), instanceId, timeBucket, threadPool.getCurrent(), threadPool.getMax(), threadPool.getBusy()));
     }
 
     private void sendToMemoryMetricService(int instanceId, long timeBucket, List<Memory> memories) {

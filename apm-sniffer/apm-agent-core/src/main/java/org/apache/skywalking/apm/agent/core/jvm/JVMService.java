@@ -26,10 +26,12 @@ import org.apache.skywalking.apm.agent.core.boot.ServiceManager;
 import org.apache.skywalking.apm.agent.core.conf.Config;
 import org.apache.skywalking.apm.agent.core.conf.RemoteDownstreamConfig;
 import org.apache.skywalking.apm.agent.core.dictionary.DictionaryUtil;
+import org.apache.skywalking.apm.agent.core.jvm.cpool.ConnPoolProvider;
 import org.apache.skywalking.apm.agent.core.jvm.cpu.CPUProvider;
 import org.apache.skywalking.apm.agent.core.jvm.gc.GCProvider;
 import org.apache.skywalking.apm.agent.core.jvm.memory.MemoryProvider;
 import org.apache.skywalking.apm.agent.core.jvm.memorypool.MemoryPoolProvider;
+import org.apache.skywalking.apm.agent.core.jvm.tpool.ThreadPoolProvider;
 import org.apache.skywalking.apm.agent.core.logging.api.ILog;
 import org.apache.skywalking.apm.agent.core.logging.api.LogManager;
 import org.apache.skywalking.apm.agent.core.remote.GRPCChannelListener;
@@ -111,6 +113,8 @@ public class JVMService implements BootService, Runnable {
                 jvmBuilder.addAllMemory(MemoryProvider.INSTANCE.getMemoryMetricList());
                 jvmBuilder.addAllMemoryPool(MemoryPoolProvider.INSTANCE.getMemoryPoolMetricList());
                 jvmBuilder.addAllGc(GCProvider.INSTANCE.getGCList());
+                jvmBuilder.addAllConnPool(ConnPoolProvider.INSTANCE.getConnPoolMetricList());
+                jvmBuilder.addAllThreadPool(ThreadPoolProvider.INSTANCE.getThreadPoolMetricList());
 
                 JVMMetric jvmMetric = jvmBuilder.build();
                 if (!queue.offer(jvmMetric)) {

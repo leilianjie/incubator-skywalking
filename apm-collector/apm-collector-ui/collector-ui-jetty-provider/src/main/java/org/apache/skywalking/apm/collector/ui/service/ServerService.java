@@ -45,6 +45,8 @@ public class ServerService {
     private final ICpuMetricUIDAO cpuMetricUIDAO;
     private final IGCMetricUIDAO gcMetricUIDAO;
     private final IMemoryMetricUIDAO memoryMetricUIDAO;
+    private final IThreadPoolMetricUIDAO threadPoolMetricUIDAO;
+    private final IConnPoolMetricUIDAO connPoolMetricUIDAO;
     private final ApplicationCacheService applicationCacheService;
     private final InstanceCacheService instanceCacheService;
     private final DateBetweenService dateBetweenService;
@@ -55,6 +57,8 @@ public class ServerService {
         this.cpuMetricUIDAO = moduleManager.find(StorageModule.NAME).getService(ICpuMetricUIDAO.class);
         this.gcMetricUIDAO = moduleManager.find(StorageModule.NAME).getService(IGCMetricUIDAO.class);
         this.memoryMetricUIDAO = moduleManager.find(StorageModule.NAME).getService(IMemoryMetricUIDAO.class);
+        this.threadPoolMetricUIDAO = moduleManager.find(StorageModule.NAME).getService(IThreadPoolMetricUIDAO.class);
+        this.connPoolMetricUIDAO = moduleManager.find(StorageModule.NAME).getService(IConnPoolMetricUIDAO.class);
         this.applicationCacheService = moduleManager.find(CacheModule.NAME).getService(ApplicationCacheService.class);
         this.instanceCacheService = moduleManager.find(CacheModule.NAME).getService(InstanceCacheService.class);
         this.dateBetweenService = new DateBetweenService(moduleManager);
@@ -140,6 +144,31 @@ public class ServerService {
         });
 
         return gcTrend;
+    }
+    
+    public ConnPoolTrend getConnPoolTrend(int instanceId, Step step, long startTimeBucket,
+    		long endTimeBucket) throws ParseException {
+    	ConnPoolTrend trend = new ConnPoolTrend();
+    	List<DurationPoint> durationPoints = DurationUtils.INSTANCE.getDurationPoints(step, startTimeBucket, endTimeBucket);
+    	IConnPoolMetricUIDAO.Trend connPoolTrend = connPoolMetricUIDAO.getConnsTrend(instanceId, step, durationPoints);
+    	trend.setPools(connPoolTrend.getPools());
+    	trend.setMax(connPoolTrend.getMaxMetrics());
+    	trend.setActive(connPoolTrend.getActiveMetrics());
+    	
+    	return trend;
+    }
+    
+    public ThreadPoolTrend getThreadPoolTrend(int instanceId, Step step, long startTimeBucket,
+    		long endTimeBucket) throws ParseException {
+    	ThreadPoolTrend threadsTrend = new ThreadPoolTrend();
+    	List<DurationPoint> durationPoints = DurationUtils.INSTANCE.getDurationPoints(step, startTimeBucket, endTimeBucket);
+    	IThreadPoolMetricUIDAO.Trend poolTrend = threadPoolMetricUIDAO.getThreadsTrend(instanceId, step, durationPoints);
+    	threadsTrend.setPools(poolTrend.getPoolsMetrics());
+    	threadsTrend.setMax(poolTrend.getMaxMetrics());
+    	threadsTrend.setBusy(poolTrend.getBusyMetrics());
+    	threadsTrend.setCurrent(poolTrend.getCurrentMetrics());
+    	
+    	return threadsTrend;
     }
 
     public MemoryTrend getMemoryTrend(int instanceId, Step step, long startTimeBucket,
