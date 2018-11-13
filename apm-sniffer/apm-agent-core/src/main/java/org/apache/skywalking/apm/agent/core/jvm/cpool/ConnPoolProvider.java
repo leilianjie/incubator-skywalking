@@ -38,10 +38,10 @@ public enum ConnPoolProvider {
     }
 
     public List<ConnPool> getConnPoolMetricList() {
-    	 MBeanServer m = ManagementFactory.getPlatformMBeanServer();
-    	 ObjectName threadObjName = new ObjectName("Catalina:type=DataSource,host=*,context=*,class=javax.sql.DataSource,name=\"*\"");
         List<ConnPool> connPoolList = new LinkedList<ConnPool>();
         try {
+        	MBeanServer m = ManagementFactory.getPlatformMBeanServer();
+        	ObjectName threadObjName = new ObjectName("Catalina:type=DataSource,host=*,context=*,class=javax.sql.DataSource,name=\"*\"");
 	        Set<ObjectName> smbi = m.queryNames(threadObjName, null);
 	    	for (ObjectName obj : smbi) {
 	    		ObjectName objname = new ObjectName(obj.getCanonicalName());
