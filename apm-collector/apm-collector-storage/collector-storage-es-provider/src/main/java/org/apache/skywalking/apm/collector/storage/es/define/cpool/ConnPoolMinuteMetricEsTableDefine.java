@@ -20,7 +20,7 @@ package org.apache.skywalking.apm.collector.storage.es.define.cpool;
 
 import org.apache.skywalking.apm.collector.core.storage.TimePyramid;
 import org.apache.skywalking.apm.collector.core.util.Const;
-import org.apache.skywalking.apm.collector.storage.table.jvm.MemoryPoolMetricTable;
+import org.apache.skywalking.apm.collector.storage.table.jvm.ConnPoolMetricTable;
 
 /**
  * @author peng-yongsheng
@@ -28,7 +28,7 @@ import org.apache.skywalking.apm.collector.storage.table.jvm.MemoryPoolMetricTab
 public class ConnPoolMinuteMetricEsTableDefine extends AbstractConnPoolMetricEsTableDefine {
 
     public ConnPoolMinuteMetricEsTableDefine() {
-        super(MemoryPoolMetricTable.TABLE + Const.ID_SPLIT + TimePyramid.Minute.getName());
+        super(ConnPoolMetricTable.TABLE + Const.ID_SPLIT + TimePyramid.Minute.getName());
     }
 
     @Override public int refreshInterval() {

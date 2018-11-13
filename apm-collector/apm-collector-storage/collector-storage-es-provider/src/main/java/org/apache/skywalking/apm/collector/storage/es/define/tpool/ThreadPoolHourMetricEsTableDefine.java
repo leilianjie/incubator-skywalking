@@ -21,6 +21,7 @@ package org.apache.skywalking.apm.collector.storage.es.define.tpool;
 import org.apache.skywalking.apm.collector.core.storage.TimePyramid;
 import org.apache.skywalking.apm.collector.core.util.Const;
 import org.apache.skywalking.apm.collector.storage.table.jvm.MemoryPoolMetricTable;
+import org.apache.skywalking.apm.collector.storage.table.jvm.ThreadPoolMetricTable;
 
 /**
  * @author peng-yongsheng
@@ -28,7 +29,7 @@ import org.apache.skywalking.apm.collector.storage.table.jvm.MemoryPoolMetricTab
 public class ThreadPoolHourMetricEsTableDefine extends AbstractThreadPoolMetricEsTableDefine {
 
     public ThreadPoolHourMetricEsTableDefine() {
-        super(MemoryPoolMetricTable.TABLE + Const.ID_SPLIT + TimePyramid.Hour.getName());
+        super(ThreadPoolMetricTable.TABLE + Const.ID_SPLIT + TimePyramid.Hour.getName());
     }
 
     @Override public int refreshInterval() {
