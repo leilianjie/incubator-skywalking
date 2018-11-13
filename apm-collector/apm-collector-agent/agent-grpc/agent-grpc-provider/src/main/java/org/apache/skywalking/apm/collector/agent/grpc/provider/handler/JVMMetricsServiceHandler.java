@@ -51,8 +51,8 @@ public class JVMMetricsServiceHandler extends JVMMetricsServiceGrpc.JVMMetricsSe
         this.memoryMetricService = moduleManager.find(AnalysisJVMModule.NAME).getService(IMemoryMetricService.class);
         this.memoryPoolMetricService = moduleManager.find(AnalysisJVMModule.NAME).getService(IMemoryPoolMetricService.class);
         this.instanceHeartBeatService = moduleManager.find(AnalysisMetricModule.NAME).getService(IInstanceHeartBeatService.class);
-        this.connPoolMetricService = moduleManager.find(AnalysisMetricModule.NAME).getService(IConnPoolMetricService.class);
-        this.threadPoolMetricService = moduleManager.find(AnalysisMetricModule.NAME).getService(IThreadPoolMetricService.class);
+        this.connPoolMetricService = moduleManager.find(AnalysisJVMModule.NAME).getService(IConnPoolMetricService.class);
+        this.threadPoolMetricService = moduleManager.find(AnalysisJVMModule.NAME).getService(IThreadPoolMetricService.class);
     }
 
     @Override public void collect(JVMMetrics request, StreamObserver<Downstream> responseObserver) {
