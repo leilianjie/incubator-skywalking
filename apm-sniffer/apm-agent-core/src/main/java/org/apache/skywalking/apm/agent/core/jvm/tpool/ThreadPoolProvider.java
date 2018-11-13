@@ -56,8 +56,10 @@ public enum ThreadPoolProvider {
 					objname = new ObjectName(obj.getCanonicalName());
 				ThreadPool.Builder poolBuilder = ThreadPool.newBuilder();
 	    		poolBuilder.setPoolName(obj.getKeyProperty("name"));
-	    		poolBuilder.setCurrent(Long.valueOf(String.valueOf(m.getAttribute(objname, "currentThreadCount"))));
-	    		poolBuilder.setBusy(Long.valueOf(String.valueOf(m.getAttribute(objname, "currentThreadsBusy"))));
+	    		long current = Long.valueOf(String.valueOf(m.getAttribute(objname, "currentThreadCount")));
+	    		poolBuilder.setCurrent(current<0?0:current);
+	    		long busy = Long.valueOf(String.valueOf(m.getAttribute(objname, "currentThreadsBusy")));
+	    		poolBuilder.setBusy(busy<0?0:busy);
 	    		poolBuilder.setMax(Long.valueOf(String.valueOf(m.getAttribute(objname, "maxThreads"))));
 	    		threadPoolList.add(poolBuilder.build());
 	    	}
