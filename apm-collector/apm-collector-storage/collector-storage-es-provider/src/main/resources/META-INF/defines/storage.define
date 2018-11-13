@@ -98,6 +98,16 @@ org.apache.skywalking.apm.collector.storage.es.define.mpool.MemoryPoolHourMetric
 org.apache.skywalking.apm.collector.storage.es.define.mpool.MemoryPoolDayMetricEsTableDefine
 org.apache.skywalking.apm.collector.storage.es.define.mpool.MemoryPoolMonthMetricEsTableDefine
 
+org.apache.skywalking.apm.collector.storage.es.define.cpool.ConnPoolMinuteMetricEsTableDefine
+org.apache.skywalking.apm.collector.storage.es.define.cpool.ConnPoolHourMetricEsTableDefine
+org.apache.skywalking.apm.collector.storage.es.define.cpool.ConnPoolDayMetricEsTableDefine
+org.apache.skywalking.apm.collector.storage.es.define.cpool.ConnPoolMonthMetricEsTableDefine
+
+org.apache.skywalking.apm.collector.storage.es.define.tpool.ThreadPoolMinuteMetricEsTableDefine
+org.apache.skywalking.apm.collector.storage.es.define.tpool.ThreadPoolHourMetricEsTableDefine
+org.apache.skywalking.apm.collector.storage.es.define.tpool.ThreadPoolDayMetricEsTableDefine
+org.apache.skywalking.apm.collector.storage.es.define.tpool.ThreadPoolMonthMetricEsTableDefine
+
 org.apache.skywalking.apm.collector.storage.es.define.memory.MemoryMinuteMetricEsTableDefine
 org.apache.skywalking.apm.collector.storage.es.define.memory.MemoryHourMetricEsTableDefine
 org.apache.skywalking.apm.collector.storage.es.define.memory.MemoryDayMetricEsTableDefine

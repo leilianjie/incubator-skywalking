@@ -19,15 +19,30 @@
 package org.apache.skywalking.apm.collector.analysis.jvm.provider;
 
 import org.apache.skywalking.apm.collector.analysis.jvm.define.AnalysisJVMModule;
-import org.apache.skywalking.apm.collector.analysis.jvm.define.service.*;
-import org.apache.skywalking.apm.collector.analysis.jvm.provider.service.*;
+import org.apache.skywalking.apm.collector.analysis.jvm.define.service.IConnPoolMetricService;
+import org.apache.skywalking.apm.collector.analysis.jvm.define.service.ICpuMetricService;
+import org.apache.skywalking.apm.collector.analysis.jvm.define.service.IGCMetricService;
+import org.apache.skywalking.apm.collector.analysis.jvm.define.service.IMemoryMetricService;
+import org.apache.skywalking.apm.collector.analysis.jvm.define.service.IMemoryPoolMetricService;
+import org.apache.skywalking.apm.collector.analysis.jvm.define.service.IThreadPoolMetricService;
+import org.apache.skywalking.apm.collector.analysis.jvm.provider.service.ConnPoolMetricService;
+import org.apache.skywalking.apm.collector.analysis.jvm.provider.service.CpuMetricService;
+import org.apache.skywalking.apm.collector.analysis.jvm.provider.service.GCMetricService;
+import org.apache.skywalking.apm.collector.analysis.jvm.provider.service.MemoryMetricService;
+import org.apache.skywalking.apm.collector.analysis.jvm.provider.service.MemoryPoolMetricService;
+import org.apache.skywalking.apm.collector.analysis.jvm.provider.service.ThreadPoolMetricService;
+import org.apache.skywalking.apm.collector.analysis.jvm.provider.worker.cpool.ConnPoolMetricPersistenceGraph;
 import org.apache.skywalking.apm.collector.analysis.jvm.provider.worker.cpu.CpuMetricPersistenceGraph;
 import org.apache.skywalking.apm.collector.analysis.jvm.provider.worker.gc.GCMetricPersistenceGraph;
 import org.apache.skywalking.apm.collector.analysis.jvm.provider.worker.memory.MemoryMetricPersistenceGraph;
 import org.apache.skywalking.apm.collector.analysis.jvm.provider.worker.memorypool.MemoryPoolMetricPersistenceGraph;
+import org.apache.skywalking.apm.collector.analysis.jvm.provider.worker.tpool.ThreadPoolMetricPersistenceGraph;
 import org.apache.skywalking.apm.collector.analysis.worker.model.base.WorkerCreateListener;
 import org.apache.skywalking.apm.collector.analysis.worker.timer.PersistenceTimer;
-import org.apache.skywalking.apm.collector.core.module.*;
+import org.apache.skywalking.apm.collector.core.module.ModuleConfig;
+import org.apache.skywalking.apm.collector.core.module.ModuleDefine;
+import org.apache.skywalking.apm.collector.core.module.ModuleProvider;
+import org.apache.skywalking.apm.collector.core.module.ServiceNotProvidedException;
 import org.apache.skywalking.apm.collector.remote.RemoteModule;
 import org.apache.skywalking.apm.collector.storage.StorageModule;
 
@@ -61,6 +76,8 @@ public class AnalysisJVMModuleProvider extends ModuleProvider {
         this.registerServiceImplementation(IGCMetricService.class, new GCMetricService());
         this.registerServiceImplementation(IMemoryMetricService.class, new MemoryMetricService());
         this.registerServiceImplementation(IMemoryPoolMetricService.class, new MemoryPoolMetricService());
+        this.registerServiceImplementation(IConnPoolMetricService.class, new ConnPoolMetricService());
+        this.registerServiceImplementation(IThreadPoolMetricService.class, new ThreadPoolMetricService());
     }
 
     @Override public void start() {
@@ -83,5 +100,7 @@ public class AnalysisJVMModuleProvider extends ModuleProvider {
         new GCMetricPersistenceGraph(getManager(), workerCreateListener).create();
         new MemoryMetricPersistenceGraph(getManager(), workerCreateListener).create();
         new MemoryPoolMetricPersistenceGraph(getManager(), workerCreateListener).create();
+        new ThreadPoolMetricPersistenceGraph(getManager(), workerCreateListener).create();
+        new ConnPoolMetricPersistenceGraph(getManager(), workerCreateListener).create();
     }
 }
