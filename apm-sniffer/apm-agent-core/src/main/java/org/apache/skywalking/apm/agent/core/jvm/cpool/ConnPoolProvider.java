@@ -34,26 +34,17 @@ import org.apache.skywalking.apm.network.proto.ConnPool;
 
 public enum ConnPoolProvider {
     INSTANCE;
-    private MBeanServer m = null;
-    private ObjectName threadObjName = null ;
-    
     ConnPoolProvider() {
-    	try {
-			threadObjName = new ObjectName("Catalina:type=DataSource,host=*,context=*,class=javax.sql.DataSource,name=\"*\"");
-			m = ManagementFactory.getPlatformMBeanServer();
-		} catch (Exception e) {
-			ILog logger = LogManager.getLogger(ConnPoolProvider.class);
-	        logger.error(e, "Cant not get DataSource MBean ......");
-		}
     }
 
     public List<ConnPool> getConnPoolMetricList() {
+    	 MBeanServer m = ManagementFactory.getPlatformMBeanServer();
+    	 ObjectName threadObjName = new ObjectName("Catalina:type=DataSource,host=*,context=*,class=javax.sql.DataSource,name=\"*\"");
         List<ConnPool> connPoolList = new LinkedList<ConnPool>();
         try {
 	        Set<ObjectName> smbi = m.queryNames(threadObjName, null);
 	    	for (ObjectName obj : smbi) {
-	    		ObjectName objname;
-					objname = new ObjectName(obj.getCanonicalName());
+	    		ObjectName objname = new ObjectName(obj.getCanonicalName());
 	    		ConnPool.Builder poolBuilder = ConnPool.newBuilder();
 	    		poolBuilder.setPoolName(obj.getKeyProperty("name"));
 	    		poolBuilder.setActive(Long.valueOf(String.valueOf(m.getAttribute(objname, "numActive"))));

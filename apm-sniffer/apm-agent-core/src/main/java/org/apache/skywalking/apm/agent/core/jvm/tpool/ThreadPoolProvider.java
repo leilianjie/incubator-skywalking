@@ -34,26 +34,18 @@ import org.apache.skywalking.apm.network.proto.ThreadPool;
 
 public enum ThreadPoolProvider {
     INSTANCE;
-    private MBeanServer m = null;
-    private ObjectName threadObjName = null ;
     
     ThreadPoolProvider() {
-    	try {
-			threadObjName = new ObjectName("Catalina:type=ThreadPool,name=\"http*\"");
-			m = ManagementFactory.getPlatformMBeanServer();
-		} catch (Exception e) {
-			ILog logger = LogManager.getLogger(ThreadPoolProvider.class);
-	        logger.error(e, "Cant not get http Thread pool MBean ......");
-		}
     }
 
     public List<ThreadPool> getThreadPoolMetricList() {
+    	MBeanServer m = ManagementFactory.getPlatformMBeanServer();
+    	ObjectName threadObjName = new ObjectName("Catalina:type=ThreadPool,name=\"http*\"");
         List<ThreadPool> threadPoolList = new LinkedList<ThreadPool>();
         try {
 	        Set<ObjectName> smbi = m.queryNames(threadObjName, null);
 	    	for (ObjectName obj : smbi) {
-	    		ObjectName objname;
-					objname = new ObjectName(obj.getCanonicalName());
+	    		ObjectName objname = new ObjectName(obj.getCanonicalName());
 				ThreadPool.Builder poolBuilder = ThreadPool.newBuilder();
 	    		poolBuilder.setPoolName(obj.getKeyProperty("name"));
 	    		long current = Long.valueOf(String.valueOf(m.getAttribute(objname, "currentThreadCount")));
