@@ -92,19 +92,19 @@ public class ConnPoolMetric extends StreamData {
     }
 
     public Long getTimes() {
-        return getDataLong(4);
+        return getDataLong(2);
     }
 
     public void setTimes(Long times) {
-        setDataLong(4, times);
+        setDataLong(2, times);
     }
 
     public Long getTimeBucket() {
-        return getDataLong(5);
+        return getDataLong(3);
     }
 
     public void setTimeBucket(Long timeBucket) {
-        setDataLong(5, timeBucket);
+        setDataLong(3, timeBucket);
     }
 
     public Integer getInstanceId() {
