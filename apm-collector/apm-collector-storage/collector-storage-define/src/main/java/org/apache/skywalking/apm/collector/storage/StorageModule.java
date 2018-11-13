@@ -121,6 +121,7 @@ import org.apache.skywalking.apm.collector.storage.dao.ui.IApplicationComponentU
 import org.apache.skywalking.apm.collector.storage.dao.ui.IApplicationMappingUIDAO;
 import org.apache.skywalking.apm.collector.storage.dao.ui.IApplicationMetricUIDAO;
 import org.apache.skywalking.apm.collector.storage.dao.ui.IApplicationReferenceMetricUIDAO;
+import org.apache.skywalking.apm.collector.storage.dao.ui.IConnPoolMetricUIDAO;
 import org.apache.skywalking.apm.collector.storage.dao.ui.ICpuMetricUIDAO;
 import org.apache.skywalking.apm.collector.storage.dao.ui.IGCMetricUIDAO;
 import org.apache.skywalking.apm.collector.storage.dao.ui.IGlobalTraceUIDAO;
@@ -136,6 +137,7 @@ import org.apache.skywalking.apm.collector.storage.dao.ui.IServiceAlarmUIDAO;
 import org.apache.skywalking.apm.collector.storage.dao.ui.IServiceMetricUIDAO;
 import org.apache.skywalking.apm.collector.storage.dao.ui.IServiceNameServiceUIDAO;
 import org.apache.skywalking.apm.collector.storage.dao.ui.IServiceReferenceMetricUIDAO;
+import org.apache.skywalking.apm.collector.storage.dao.ui.IThreadPoolMetricUIDAO;
 import org.apache.skywalking.apm.collector.storage.ttl.ITTLConfigService;
 
 /**
@@ -275,6 +277,8 @@ public class StorageModule extends ModuleDefine {
         classes.add(ICpuMetricUIDAO.class);
         classes.add(IGCMetricUIDAO.class);
         classes.add(IMemoryMetricUIDAO.class);
+        classes.add(IConnPoolMetricUIDAO.class);
+        classes.add(IThreadPoolMetricUIDAO.class);
 
         classes.add(IGlobalTraceUIDAO.class);
         classes.add(IResponseTimeDistributionUIDAO.class);
