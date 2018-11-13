@@ -18,10 +18,12 @@
 
 package org.apache.skywalking.apm.collector.analysis.jvm.define;
 
+import org.apache.skywalking.apm.collector.analysis.jvm.define.service.IConnPoolMetricService;
 import org.apache.skywalking.apm.collector.analysis.jvm.define.service.ICpuMetricService;
 import org.apache.skywalking.apm.collector.analysis.jvm.define.service.IGCMetricService;
 import org.apache.skywalking.apm.collector.analysis.jvm.define.service.IMemoryMetricService;
 import org.apache.skywalking.apm.collector.analysis.jvm.define.service.IMemoryPoolMetricService;
+import org.apache.skywalking.apm.collector.analysis.jvm.define.service.IThreadPoolMetricService;
 import org.apache.skywalking.apm.collector.core.module.ModuleDefine;
 
 /**
@@ -38,7 +40,8 @@ public class AnalysisJVMModule extends ModuleDefine {
     @Override public Class[] services() {
         return new Class[] {
             ICpuMetricService.class, IGCMetricService.class,
-            IMemoryMetricService.class, IMemoryPoolMetricService.class
+            IMemoryMetricService.class, IMemoryPoolMetricService.class,
+            IThreadPoolMetricService.class, IConnPoolMetricService.class
         };
     }
 }
