@@ -37,7 +37,7 @@ public class ThreadPoolMetric extends StreamData {
         new LongColumn(ThreadPoolMetricTable.CURRENT, new MaxMergeOperation()),
         new LongColumn(ThreadPoolMetricTable.MAX, new MaxMergeOperation()),
         new LongColumn(ThreadPoolMetricTable.BUSY, new MaxMergeOperation()),
-        new LongColumn(ThreadPoolMetricTable.TIMES, new AddMergeOperation()),
+        new LongColumn(ThreadPoolMetricTable.TIMES, new MaxMergeOperation()),
         new LongColumn(ThreadPoolMetricTable.TIME_BUCKET, new NonMergeOperation()),
     };
 

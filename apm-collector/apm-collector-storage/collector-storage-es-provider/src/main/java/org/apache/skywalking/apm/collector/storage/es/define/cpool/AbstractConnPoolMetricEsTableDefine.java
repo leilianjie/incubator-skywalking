@@ -38,6 +38,7 @@ public abstract class AbstractConnPoolMetricEsTableDefine extends ElasticSearchT
     @Override public final void initialize() {
         addColumn(new ElasticSearchColumnDefine(ConnPoolMetricTable.ID, ElasticSearchColumnDefine.Type.Keyword.name()));
         addColumn(new ElasticSearchColumnDefine(ConnPoolMetricTable.METRIC_ID, ElasticSearchColumnDefine.Type.Keyword.name()));
+        addColumn(new ElasticSearchColumnDefine(ConnPoolMetricTable.POOL_NAME, ElasticSearchColumnDefine.Type.Keyword.name()));
         addColumn(new ElasticSearchColumnDefine(ConnPoolMetricTable.INSTANCE_ID, ElasticSearchColumnDefine.Type.Integer.name()));
         addColumn(new ElasticSearchColumnDefine(ConnPoolMetricTable.MAX, ElasticSearchColumnDefine.Type.Long.name()));
         addColumn(new ElasticSearchColumnDefine(ConnPoolMetricTable.ACTIVE, ElasticSearchColumnDefine.Type.Long.name()));

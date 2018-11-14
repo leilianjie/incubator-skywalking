@@ -38,6 +38,7 @@ public abstract class AbstractThreadPoolMetricEsTableDefine extends ElasticSearc
     @Override public final void initialize() {
         addColumn(new ElasticSearchColumnDefine(ThreadPoolMetricTable.ID, ElasticSearchColumnDefine.Type.Keyword.name()));
         addColumn(new ElasticSearchColumnDefine(ThreadPoolMetricTable.METRIC_ID, ElasticSearchColumnDefine.Type.Keyword.name()));
+        addColumn(new ElasticSearchColumnDefine(ThreadPoolMetricTable.POOL_NAME, ElasticSearchColumnDefine.Type.Keyword.name()));
         addColumn(new ElasticSearchColumnDefine(ThreadPoolMetricTable.INSTANCE_ID, ElasticSearchColumnDefine.Type.Integer.name()));
         addColumn(new ElasticSearchColumnDefine(ThreadPoolMetricTable.CURRENT, ElasticSearchColumnDefine.Type.Long.name()));
         addColumn(new ElasticSearchColumnDefine(ThreadPoolMetricTable.MAX, ElasticSearchColumnDefine.Type.Long.name()));

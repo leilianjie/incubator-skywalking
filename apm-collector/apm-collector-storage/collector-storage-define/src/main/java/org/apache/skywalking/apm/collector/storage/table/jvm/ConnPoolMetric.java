@@ -35,8 +35,8 @@ public class ConnPoolMetric extends StreamData {
 
     private static final LongColumn[] LONG_COLUMNS = {
         new LongColumn(ConnPoolMetricTable.MAX, new MaxMergeOperation()),
-        new LongColumn(ConnPoolMetricTable.ACTIVE, new AddMergeOperation()),
-        new LongColumn(ConnPoolMetricTable.TIMES, new AddMergeOperation()),
+        new LongColumn(ConnPoolMetricTable.ACTIVE, new MaxMergeOperation()),
+        new LongColumn(ConnPoolMetricTable.TIMES, new MaxMergeOperation()),
         new LongColumn(ConnPoolMetricTable.TIME_BUCKET, new NonMergeOperation()),
     };
 
