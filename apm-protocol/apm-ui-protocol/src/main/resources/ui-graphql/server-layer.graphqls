@@ -51,7 +51,7 @@ type MemoryTrend {
 }
 
 type ThreadPoolTrend {
-    pools: [Int!]!
+    pools: [String!]!
     current: [Int!]!
     max: [Int!]!
     busy: [Int!]!
