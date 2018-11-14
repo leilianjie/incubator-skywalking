@@ -26,7 +26,6 @@ import org.apache.skywalking.apm.collector.storage.StorageModule;
 import org.apache.skywalking.apm.collector.storage.base.dao.IPersistenceDAO;
 import org.apache.skywalking.apm.collector.storage.dao.cpool.IConnPoolHourMetricPersistenceDAO;
 import org.apache.skywalking.apm.collector.storage.table.jvm.ConnPoolMetric;
-import org.apache.skywalking.apm.collector.storage.table.jvm.MemoryMetric;
 
 /**
  * @author peng-yongsheng

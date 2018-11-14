@@ -23,7 +23,7 @@ import org.apache.skywalking.apm.collector.core.storage.TimePyramid;
 import org.apache.skywalking.apm.collector.core.util.Const;
 import org.apache.skywalking.apm.collector.storage.dao.cpool.IConnPoolDayMetricPersistenceDAO;
 import org.apache.skywalking.apm.collector.storage.table.jvm.ConnPoolMetric;
-import org.apache.skywalking.apm.collector.storage.table.jvm.MemoryPoolMetricTable;
+import org.apache.skywalking.apm.collector.storage.table.jvm.ConnPoolMetricTable;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.update.UpdateRequestBuilder;
 
@@ -37,6 +37,6 @@ public class ConnPoolDayMetricEsPersistenceDAO extends AbstractConnPoolMetricEsP
     }
 
     @Override protected String tableName() {
-        return MemoryPoolMetricTable.TABLE + Const.ID_SPLIT + TimePyramid.Day.getName();
+        return ConnPoolMetricTable.TABLE + Const.ID_SPLIT + TimePyramid.Day.getName();
     }
 }
