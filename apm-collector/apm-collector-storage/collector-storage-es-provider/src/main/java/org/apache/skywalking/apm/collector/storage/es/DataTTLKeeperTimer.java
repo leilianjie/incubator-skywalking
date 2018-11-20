@@ -27,6 +27,10 @@ import org.apache.skywalking.apm.collector.storage.dao.alarm.*;
 import org.apache.skywalking.apm.collector.storage.dao.amp.*;
 import org.apache.skywalking.apm.collector.storage.dao.ampp.*;
 import org.apache.skywalking.apm.collector.storage.dao.armp.*;
+import org.apache.skywalking.apm.collector.storage.dao.cpool.IConnPoolDayMetricPersistenceDAO;
+import org.apache.skywalking.apm.collector.storage.dao.cpool.IConnPoolHourMetricPersistenceDAO;
+import org.apache.skywalking.apm.collector.storage.dao.cpool.IConnPoolMinuteMetricPersistenceDAO;
+import org.apache.skywalking.apm.collector.storage.dao.cpool.IConnPoolMonthMetricPersistenceDAO;
 import org.apache.skywalking.apm.collector.storage.dao.cpu.*;
 import org.apache.skywalking.apm.collector.storage.dao.gc.*;
 import org.apache.skywalking.apm.collector.storage.dao.imp.*;
@@ -37,6 +41,10 @@ import org.apache.skywalking.apm.collector.storage.dao.mpool.*;
 import org.apache.skywalking.apm.collector.storage.dao.rtd.*;
 import org.apache.skywalking.apm.collector.storage.dao.smp.*;
 import org.apache.skywalking.apm.collector.storage.dao.srmp.*;
+import org.apache.skywalking.apm.collector.storage.dao.tpool.IThreadPoolDayMetricPersistenceDAO;
+import org.apache.skywalking.apm.collector.storage.dao.tpool.IThreadPoolHourMetricPersistenceDAO;
+import org.apache.skywalking.apm.collector.storage.dao.tpool.IThreadPoolMinuteMetricPersistenceDAO;
+import org.apache.skywalking.apm.collector.storage.dao.tpool.IThreadPoolMonthMetricPersistenceDAO;
 import org.apache.skywalking.apm.util.RunnableWithExceptionProtection;
 import org.joda.time.DateTime;
 import org.slf4j.*;
@@ -146,6 +154,16 @@ class DataTTLKeeperTimer {
         moduleManager.find(StorageModule.NAME).getService(IMemoryPoolHourMetricPersistenceDAO.class).deleteHistory(timeBuckets.hourTimeBucketBefore);
         moduleManager.find(StorageModule.NAME).getService(IMemoryPoolDayMetricPersistenceDAO.class).deleteHistory(timeBuckets.dayTimeBucketBefore);
         moduleManager.find(StorageModule.NAME).getService(IMemoryPoolMonthMetricPersistenceDAO.class).deleteHistory(timeBuckets.monthTimeBucketBefore);
+        
+        moduleManager.find(StorageModule.NAME).getService(IThreadPoolMinuteMetricPersistenceDAO.class).deleteHistory(timeBuckets.minuteTimeBucketBefore);
+        moduleManager.find(StorageModule.NAME).getService(IThreadPoolHourMetricPersistenceDAO.class).deleteHistory(timeBuckets.hourTimeBucketBefore);
+        moduleManager.find(StorageModule.NAME).getService(IThreadPoolDayMetricPersistenceDAO.class).deleteHistory(timeBuckets.dayTimeBucketBefore);
+        moduleManager.find(StorageModule.NAME).getService(IThreadPoolMonthMetricPersistenceDAO.class).deleteHistory(timeBuckets.monthTimeBucketBefore);
+        
+        moduleManager.find(StorageModule.NAME).getService(IConnPoolMinuteMetricPersistenceDAO.class).deleteHistory(timeBuckets.minuteTimeBucketBefore);
+        moduleManager.find(StorageModule.NAME).getService(IConnPoolHourMetricPersistenceDAO.class).deleteHistory(timeBuckets.hourTimeBucketBefore);
+        moduleManager.find(StorageModule.NAME).getService(IConnPoolDayMetricPersistenceDAO.class).deleteHistory(timeBuckets.dayTimeBucketBefore);
+        moduleManager.find(StorageModule.NAME).getService(IConnPoolMonthMetricPersistenceDAO.class).deleteHistory(timeBuckets.monthTimeBucketBefore);
     }
 
     private void deleteTraceRelatedData(TimeBuckets timeBuckets) {
