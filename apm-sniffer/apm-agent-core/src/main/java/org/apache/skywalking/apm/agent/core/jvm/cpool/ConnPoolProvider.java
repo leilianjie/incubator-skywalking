@@ -51,6 +51,17 @@ public enum ConnPoolProvider {
 	    		poolBuilder.setMax(Long.valueOf(String.valueOf(m.getAttribute(objname, "maxTotal"))));
 	    		connPoolList.add(poolBuilder.build());
 	    	}
+	    	
+	    	ObjectName ncObjName = new ObjectName("uap.middleware:type=connection pool,name=fc*");
+	    	Set<ObjectName> ncos = m.queryNames(ncObjName, null);
+	    	for (ObjectName obj : ncos) {
+	    		ObjectName objname = new ObjectName(obj.getCanonicalName());
+	    		ConnPool.Builder poolBuilder = ConnPool.newBuilder();
+	    		poolBuilder.setPoolName(obj.getKeyProperty("name"));
+	    		poolBuilder.setActive(Long.valueOf(String.valueOf(m.getAttribute(objname, "InUsedConnection"))));
+	    		poolBuilder.setMax(Long.valueOf(String.valueOf(m.getAttribute(objname, "MaxConnection"))));
+	    		connPoolList.add(poolBuilder.build());
+	    	}
         } catch (Exception e) {
         	ILog logger = LogManager.getLogger(ConnPoolProvider.class);
 	        logger.error(e, "Cant not get DataSource MBean Attribute ......");

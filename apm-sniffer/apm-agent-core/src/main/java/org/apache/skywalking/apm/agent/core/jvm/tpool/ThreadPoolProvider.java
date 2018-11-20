@@ -42,7 +42,7 @@ public enum ThreadPoolProvider {
         List<ThreadPool> threadPoolList = new LinkedList<ThreadPool>();
         try {
         	MBeanServer m = ManagementFactory.getPlatformMBeanServer();
-        	ObjectName threadObjName = new ObjectName("Catalina:type=ThreadPool,name=\"http*\"");
+        	ObjectName threadObjName = new ObjectName("*:type=ThreadPool,name=\"http*\"");
 	        Set<ObjectName> smbi = m.queryNames(threadObjName, null);
 	    	for (ObjectName obj : smbi) {
 	    		ObjectName objname = new ObjectName(obj.getCanonicalName());
