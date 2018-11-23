@@ -425,46 +425,6 @@
                 </plugins>
             </build>
         </profile>
-	<profile>
-            <!-- ojdbc is not Apache license compatible, so it must be manually downloaded first -->
-            <id>install-ojdbc6</id>
-            <activation>
-                <file>
-                    <exists>${basedir}/ci-dependencies/ojdbc6-12.1.0.2.jar</exists>
-                </file>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>1.6.0</version>
-                        <executions>
-                            <execution>
-                                <id>install-ojdbc6</id>
-                                <inherited>false</inherited>
-                                <phase>process-resources</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>mvn</executable>
-                                    <arguments>
-                                        <argument>install:install-file</argument>
-                                        <argument>-Dfile=ojdbc6-12.1.0.2.jar</argument>
-                                        <argument>-DgroupId=com.oracle</argument>
-                                        <argument>-DartifactId=ojdbc6</argument>
-                                        <argument>-Dversion=12.1.0.2</argument>
-                                        <argument>-Dpackaging=jar</argument>
-                                    </arguments>
-                                    <workingDirectory>${project.basedir}/ci-dependencies</workingDirectory>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
 
         <profile>
             <!-- ojdbc is not Apache license compatible, so it must be manually downloaded first -->
